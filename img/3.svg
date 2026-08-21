@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="32%" r="82%">
+      <stop offset="0" stop-color="#fdfdfe"/><stop offset=".55" stop-color="#e9eaee"/><stop offset="1" stop-color="#c6c8ce"/>
+    </radialGradient>
+    <linearGradient id="paint" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff453a"/><stop offset=".48" stop-color="#d4001a"/><stop offset="1" stop-color="#78000f"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#454b54"/><stop offset="1" stop-color="#11141a"/>
+    </linearGradient>
+    <radialGradient id="rim" cx="42%" cy="38%" r="62%">
+      <stop offset="0" stop-color="#eceef1"/><stop offset=".7" stop-color="#9c9ea4"/><stop offset="1" stop-color="#4e5056"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <ellipse cx="612" cy="628" rx="475" ry="34" fill="#000" opacity=".18"/>
+  <g>
+    <path d="M118 560 C150 495 208 470 300 464 L468 456
+             C518 400 585 370 700 370 C816 370 902 404 970 452
+             L1062 470 C1092 480 1098 514 1086 550 C1081 563 1069 567 1050 567
+             L150 567 C130 567 116 561 118 560 Z" fill="url(#paint)"/>
+    <path d="M150 567 L1050 567 C1026 586 972 592 892 592 L300 592 C222 592 174 583 150 567 Z" fill="#3a0008" opacity=".5"/>
+    <path d="M505 452 C560 398 606 378 700 378 C793 378 858 402 903 450 Z" fill="url(#glass)"/>
+    <path d="M842 470 L946 470 L980 502 L848 502 Z" fill="#16181e" opacity=".75"/>
+    <path d="M180 502 C262 470 384 458 520 456 L520 467 C384 469 272 482 202 510 Z" fill="#fff" opacity=".28"/>
+    <circle cx="316" cy="567" r="93" fill="#101216"/>
+    <circle cx="316" cy="567" r="53" fill="url(#rim)"/>
+    <g stroke="#5b5d63" stroke-width="7" stroke-linecap="round">
+      <line x1="316" y1="567" x2="316" y2="520" transform="rotate(0 316 567)"/>
+      <line x1="316" y1="567" x2="316" y2="520" transform="rotate(72 316 567)"/>
+      <line x1="316" y1="567" x2="316" y2="520" transform="rotate(144 316 567)"/>
+      <line x1="316" y1="567" x2="316" y2="520" transform="rotate(216 316 567)"/>
+      <line x1="316" y1="567" x2="316" y2="520" transform="rotate(288 316 567)"/>
+    </g>
+    <circle cx="316" cy="567" r="14" fill="#33353b"/>
+    <circle cx="906" cy="567" r="93" fill="#101216"/>
+    <circle cx="906" cy="567" r="53" fill="url(#rim)"/>
+    <g stroke="#5b5d63" stroke-width="7" stroke-linecap="round">
+      <line x1="906" y1="567" x2="906" y2="520" transform="rotate(0 906 567)"/>
+      <line x1="906" y1="567" x2="906" y2="520" transform="rotate(72 906 567)"/>
+      <line x1="906" y1="567" x2="906" y2="520" transform="rotate(144 906 567)"/>
+      <line x1="906" y1="567" x2="906" y2="520" transform="rotate(216 906 567)"/>
+      <line x1="906" y1="567" x2="906" y2="520" transform="rotate(288 906 567)"/>
+    </g>
+    <circle cx="906" cy="567" r="14" fill="#33353b"/>
+    <path d="M132 512 L188 506 L192 524 L138 532 Z" fill="#e9f2ff" opacity=".9"/>
+  </g>
+</svg>

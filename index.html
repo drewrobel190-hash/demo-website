@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teshi SportsC — Certified Pre-Owned Performance Cars</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=19" />
+</head>
+<body>
+  <!-- ===== Top utility bar ===== -->
+  <div class="utility-bar">
+    <div class="container utility-inner">
+      <span>Philippines</span>
+      <div class="utility-links">
+        <a href="#" data-action="dealer">Dealer Login</a>
+        <a href="#" data-action="sell">Sell Your Car</a>
+        <a href="#" data-action="contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="#" class="brand" data-action="home">
+        <span class="brand-mark">T</span>
+        <span class="brand-name">Teshi<span class="brand-sub">SportsC</span></span>
+      </a>
+      <nav class="main-nav">
+        <a href="#" class="active" data-action="why">Why Approved</a>
+        <a href="#" data-action="value">Value Your Car</a>
+        <a href="#" data-action="favorites">Favorites</a>
+        <a href="#" data-action="models">Models</a>
+      </nav>
+      <button class="header-cta" data-action="book">Book a Viewing</button>
+    </div>
+  </header>
+
+  <!-- ===== Sticky sub-header (slides in on scroll) ===== -->
+  <div class="subheader" id="subHeader">
+    <div class="container subheader-inner">
+      <button class="refine-btn">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path d="M3 6h18M6 12h12M10 18h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Refine Your Search
+      </button>
+      <div class="toolbar-right">
+        <button class="compare-btn">Compare</button>
+        <label class="sort-control">
+          <span class="sort-cap">Order</span>
+          <select class="sort-select">
+            <option value="featured">Newest Listed</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="mileage-asc">Mileage: Low to High</option>
+            <option value="year-desc">Year: Newest</option>
+          </select>
+        </label>
+        <div class="view-toggle" role="group" aria-label="View mode">
+          <button class="view-btn" data-view="list" aria-label="List view">&#9776;</button>
+          <button class="view-btn active" data-view="grid" aria-label="Grid view">&#9638;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Home hero ===== -->
+  <section class="home-hero" id="homeHero">
+    <video class="home-hero-video" autoplay muted loop playsinline
+           src="videos/mixkit-accelerating-car-dashboard-64-full-hd.mp4"></video>
+    <div class="home-hero-scrim"></div>
+    <div class="container home-hero-inner">
+      <p class="home-eyebrow">Certified Pre-Owned · Philippines</p>
+      <h1 class="home-title">Extraordinary cars,<br />exceptionally chosen.</h1>
+      <p class="home-lede">Every Teshi SportsC vehicle is hand-selected and backed by a 142-point
+        inspection and a 24-month warranty — delivered anywhere in the Philippines.</p>
+      <div class="home-actions">
+        <button class="home-cta" data-action="browse">Browse Inventory</button>
+        <button class="home-cta ghost" data-action="why">Why Teshi Approved</button>
+      </div>
+      <div class="home-stats">
+        <div><strong id="homeCount">—</strong><span>Available now</span></div>
+        <div><strong>142</strong><span>Point inspection</span></div>
+        <div><strong>24 mo</strong><span>Warranty</span></div>
+      </div>
+    </div>
+    <button class="hero-cue" aria-label="Scroll down"
+            onclick="document.querySelector('.home-tiles').scrollIntoView({behavior:'smooth'})">
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+        <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </section>
+
+  <!-- ===== Home editorial tiles ===== -->
+  <section class="home-block home-tiles">
+    <a href="#" class="home-tile" data-action="browse" style="--img:url('img/gettyimages-2232400795-612x612.jpg')">
+      <div class="tile-inner">
+        <p class="tile-eyebrow">Collection</p>
+        <h2>Certified Pre-Owned</h2>
+        <span class="tile-link">Discover&nbsp;›</span>
+      </div>
+    </a>
+    <a href="#" class="home-tile" data-action="why" style="--img:url('img/gettyimages-182185108-612x612.jpg')">
+      <div class="tile-inner">
+        <p class="tile-eyebrow">142-Point Inspection</p>
+        <h2>Why Teshi Approved</h2>
+        <span class="tile-link">Discover&nbsp;›</span>
+      </div>
+    </a>
+  </section>
+
+  <section class="home-block home-tiles">
+    <a href="#" class="home-tile" data-action="value" style="--img:url('img/gettyimages-1277770032-612x612.jpg')">
+      <div class="tile-inner">
+        <p class="tile-eyebrow">Sell or Trade</p>
+        <h2>Value Your Car</h2>
+        <span class="tile-link">Discover&nbsp;›</span>
+      </div>
+    </a>
+    <a href="#" class="home-tile" data-action="book" style="--img:url('img/gettyimages-157330801-612x612.jpg')">
+      <div class="tile-inner">
+        <p class="tile-eyebrow">Private Appointment</p>
+        <h2>Book a Viewing</h2>
+        <span class="tile-link">Discover&nbsp;›</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- ===== About / company ===== -->
+  <section class="home-block home-about">
+    <div class="container home-about-grid">
+      <div>
+        <p class="home-about-eyebrow">About Teshi SportsC</p>
+        <h2 class="home-about-title">The Philippines' home for certified performance cars.</h2>
+      </div>
+      <div class="home-about-body">
+        <p>Founded on a passion for extraordinary machines, Teshi SportsC brings a curated
+          selection of the world's finest pre-owned performance cars to showrooms across the
+          Philippines — from Makati and BGC to Cebu and Davao.</p>
+        <p>Every vehicle is hand-selected, passes a rigorous 142-point inspection, and is backed
+          by a 24-month warranty and full service history, so you drive away with total confidence.</p>
+        <div class="home-about-stats">
+          <div><strong>6</strong><span>Showrooms nationwide</span></div>
+          <div><strong>142</strong><span>Point inspection</span></div>
+          <div><strong>24 mo</strong><span>Warranty</span></div>
+          <div><strong>100%</strong><span>Verified history</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Newsletter ===== -->
+  <section class="home-block home-newsletter">
+    <div class="container">
+      <h2>Newsletter</h2>
+      <p>Be first to see new arrivals and exclusive offers from Teshi SportsC.</p>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" placeholder="Your email address" aria-label="Email address" />
+        <button type="submit" class="cta-inquire">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== Page banner ===== -->
+  <section class="page-banner">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="#">Home</a><span>/</span>
+        <a href="#">Pre-Owned</a><span>/</span>
+        <a href="#">Philippines</a><span>/</span>
+        <span class="current">296 GTB</span>
+      </nav>
+      <div class="banner-title-row">
+        <div>
+          <h1>Used 296 GTB</h1>
+          <p class="banner-sub"><span id="heroCount">—</span> certified examples available across the Philippines</p>
+        </div>
+        <div class="banner-badges">
+          <span class="banner-badge"><strong>142</strong> point inspection</span>
+          <span class="banner-badge"><strong>24 mo</strong> warranty</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Results ===== -->
+  <main class="container results">
+    <!-- Toolbar -->
+    <div class="results-toolbar">
+      <button class="refine-btn" id="refineBtn" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path d="M3 6h18M6 12h12M10 18h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Refine Your Search
+      </button>
+      <div class="toolbar-right">
+        <button class="compare-btn">Compare</button>
+        <label class="sort-control">
+          <span class="sort-cap">Order</span>
+          <select id="sortBy" class="sort-select">
+            <option value="featured">Newest Listed</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="mileage-asc">Mileage: Low to High</option>
+            <option value="year-desc">Year: Newest</option>
+          </select>
+        </label>
+        <div class="view-toggle" role="group" aria-label="View mode">
+          <button class="view-btn" data-view="list" aria-label="List view">&#9776;</button>
+          <button class="view-btn active" data-view="grid" aria-label="Grid view">&#9638;</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-divider"></div>
+
+    <!-- Back to search (shown in Favorites) -->
+    <button class="fav-back" id="favBack" data-action="back-search" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to your search
+    </button>
+
+    <!-- Listings -->
+    <div class="listings-head">
+      <h2 class="listings-title" id="listingsTitle">Used Performance Cars for Sale in the Philippines</h2>
+      <p class="result-count"><span id="resultCount">0</span> results</p>
+    </div>
+
+    <!-- Active filter chips + save search -->
+    <div class="active-filters" id="activeFilters" hidden></div>
+
+    <div class="card-grid" id="cardGrid"></div>
+
+    <div class="load-more-wrap" id="loadMoreWrap" hidden>
+      <button class="load-more" id="loadMore">Load More</button>
+    </div>
+
+    <div class="empty-state" id="emptyState" hidden>
+      <p>No vehicles match your filters.</p>
+      <button class="link-btn" id="clearFromEmpty">Clear filters</button>
+    </div>
+  </main>
+
+  <!-- ===== Vehicle detail view ===== -->
+  <section class="detail" id="detailView" hidden>
+    <div class="container detail-topbar">
+      <button class="detail-back" id="detailBack">‹ Back to your search</button>
+      <div class="detail-stepnav">
+        <button id="detailPrev">Previous</button>
+        <span class="sep">|</span>
+        <button id="detailNext">Next</button>
+      </div>
+    </div>
+
+    <div class="container detail-gallery">
+      <div class="detail-hero" id="detailHero"></div>
+      <div class="detail-thumbs" id="detailThumbs"></div>
+    </div>
+
+    <div class="container detail-info">
+      <div class="detail-info-main">
+        <div class="card-brand">Teshi</div>
+        <h1 class="detail-title" id="detailTitle"></h1>
+        <p class="detail-meta" id="detailMeta"></p>
+        <p class="detail-ids" id="detailIds"></p>
+      </div>
+      <div class="detail-info-buy">
+        <div class="detail-price" id="detailPrice"></div>
+        <button class="cta-inquire detail-inquire">Inquire</button>
+        <button class="detail-fav" id="detailFav" aria-label="Save vehicle">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"
+                  fill="var(--fill)" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2 class="detail-section-title">Overview</h2>
+      <div class="detail-specs" id="detailSpecs"></div>
+    </div>
+
+    <div class="container detail-showroom" id="detailShowroom"></div>
+
+    <div class="detail-related">
+      <div class="container">
+        <h2 class="detail-related-title">Related Vehicles in the Philippines</h2>
+        <div class="card-grid detail-related-grid" id="detailRelated"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== "Still searching" CTA ===== -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Still searching for your ideal car?</h2>
+      <p>Contact our team of specialists and we'll help you find the one.</p>
+      <button class="cta-inquire">Inquire</button>
+    </div>
+  </section>
+
+  <!-- ===== Directory: by dealer ===== -->
+  <section class="directory">
+    <div class="container">
+      <h3 class="directory-title">Pre-Owned by Dealer</h3>
+      <div class="directory-grid">
+        <a href="#">Teshi Makati</a>
+        <a href="#">Teshi BGC</a>
+        <a href="#">Teshi Manila</a>
+        <a href="#">Teshi Quezon City</a>
+        <a href="#">Teshi Pasig</a>
+        <a href="#">Teshi Ortigas</a>
+        <a href="#">Teshi Alabang</a>
+        <a href="#">Teshi Muntinlupa</a>
+        <a href="#">Teshi Cebu</a>
+        <a href="#">Teshi Mandaue</a>
+        <a href="#">Teshi Davao</a>
+        <a href="#">Teshi Iloilo</a>
+        <a href="#">Teshi Bacolod</a>
+        <a href="#">Teshi Cagayan de Oro</a>
+        <a href="#">Teshi Pampanga</a>
+        <a href="#">Teshi Clark</a>
+        <a href="#">Teshi Baguio</a>
+        <a href="#">Teshi Batangas</a>
+        <a href="#">Teshi Laguna</a>
+        <a href="#">Teshi Subic</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Directory: by model ===== -->
+  <section class="directory directory-alt" id="modelsDir">
+    <div class="container">
+      <h3 class="directory-title">Pre-Owned by Model</h3>
+      <div class="directory-grid directory-models">
+        <a href="#">296 GTB</a>
+        <a href="#">296 GTS</a>
+        <a href="#">SF90 Stradale</a>
+        <a href="#">SF90 Spider</a>
+        <a href="#">F8 Tributo</a>
+        <a href="#">F8 Spider</a>
+        <a href="#">Roma</a>
+        <a href="#">Roma Spider</a>
+        <a href="#">Portofino M</a>
+        <a href="#">812 GTS</a>
+        <a href="#">Purosangue</a>
+        <a href="#">12Cilindri</a>
+      </div>
+      <button class="show-all" id="showAll">Show All ▾</button>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container footer-cols">
+      <div>
+        <h4>Inventory</h4>
+        <a href="#">All Vehicles</a>
+        <a href="#">Certified Pre-Owned</a>
+        <a href="#">New Arrivals</a>
+        <a href="#">Reserved</a>
+      </div>
+      <div>
+        <h4>Buying</h4>
+        <a href="#">Financing</a>
+        <a href="#">Warranty</a>
+        <a href="#">Delivery</a>
+        <a href="#">Trade-In</a>
+      </div>
+      <div>
+        <h4>Selling</h4>
+        <a href="#">Value Your Car</a>
+        <a href="#">Consignment</a>
+        <a href="#">Sell Direct</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">Why Approved</a>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#">Contact</a>
+        <a href="#">Book a Viewing</a>
+        <a href="#">FAQ</a>
+        <a href="#">Dealer Login</a>
+      </div>
+    </div>
+
+    <div class="container footer-social">
+      <a href="#"><span>Facebook</span></a>
+      <a href="#"><span>Instagram</span></a>
+      <a href="#"><span>LinkedIn</span></a>
+      <a href="#"><span>YouTube</span></a>
+      <a href="#"><span>TikTok</span></a>
+      <a href="#"><span>X</span></a>
+    </div>
+
+    <div class="container footer-legal">
+      <p class="legal-copy">
+        Teshi SportsC — a demonstration project. Not affiliated with, endorsed by,
+        or connected to any vehicle manufacturer. All names, prices, and vehicles shown
+        are fictional and for illustration only.
+      </p>
+      <div class="legal-links">
+        <span>© 2026 Teshi SportsC</span>
+        <a href="#">Legal</a>
+        <a href="#">Privacy</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Accessibility</a>
+        <span class="region">◉ Philippines</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Back to top ===== -->
+  <button class="to-top" id="toTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- ===== Slide-out menu ===== -->
+  <div class="mega-menu" id="megaMenu" hidden
+       onclick="if(event.target===this){this.hidden=true;document.body.style.overflow='';}">
+    <button class="mega-close" id="megaClose" aria-label="Close menu"
+            onclick="var m=document.getElementById('megaMenu');m.hidden=true;document.body.style.overflow='';">&times;</button>
+    <div class="mega-inner">
+      <div class="mega-left">
+        <p class="mega-eyebrow">Pre-Owned</p>
+        <nav class="mega-nav" id="megaNav">
+          <a href="#" class="active" data-img="img/1.svg" data-action="home">Home</a>
+          <a href="#" data-img="img/2.svg" data-action="why">Why Approved</a>
+          <a href="#" data-img="img/3.svg" data-action="models">Models</a>
+          <a href="#" data-img="img/4.svg" data-action="value">Value Your Car</a>
+        </nav>
+      </div>
+      <div class="mega-right">
+        <img id="megaImg" src="img/1.svg" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Filter popup ===== -->
+  <div class="filter-modal" id="filterModal" hidden
+       onclick="if(event.target===this){this.hidden=true;document.body.style.overflow='';}">
+    <div class="filter-dialog">
+      <button class="filter-close" id="filterClose" aria-label="Close"
+              onclick="var m=document.getElementById('filterModal');m.hidden=true;document.body.style.overflow='';">&times;</button>
+      <div class="filter-cols">
+        <div class="filter-cats">
+          <div class="filter-cats-head">
+            <h2>Refine your search</h2>
+            <p class="filter-count">(<span id="filterResultCount">0</span> results)</p>
+          </div>
+          <nav class="filter-catlist" id="filterCatList"></nav>
+        </div>
+        <div class="filter-options" id="filterOptions"></div>
+      </div>
+      <div class="filter-modal-foot">
+        <button class="link-btn" id="filterClear">Clear all</button>
+        <button class="filter-search-btn" id="filterSearch">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Quick View Modal ===== -->
+  <div class="modal-backdrop" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="app.js?v=20"></script>
+</body>
+</html>

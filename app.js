@@ -332,6 +332,19 @@ function centerAllDots() {
   el.grid.querySelectorAll('.gallery').forEach(centerDots);
 }
 
+// Move a gallery to a photo index (clamped) and sync slides/dots/arrows.
+function setGalleryIndex(gallery, idx) {
+  const count = +gallery.dataset.count;
+  idx = Math.min(count - 1, Math.max(0, idx));
+  gallery.dataset.idx = idx;
+  gallery.querySelectorAll('.slide').forEach((s, i) => s.classList.toggle('active', i === idx));
+  gallery.querySelectorAll('.gdot').forEach((d, i) => d.classList.toggle('active', i === idx));
+  const prev = gallery.querySelector('.gnav.prev'), next = gallery.querySelector('.gnav.next');
+  if (prev) prev.classList.toggle('disabled', idx === 0);
+  if (next) next.classList.toggle('disabled', idx === count - 1);
+  centerDots(gallery);
+}
+
 function render() {
   const list = getVisible();
   el.count.textContent = list.length;
@@ -402,33 +415,57 @@ function closeModal() {
 const vin = c => `VLC${c.year}${c.model.replace(/\W/g, '').slice(0, 2).toUpperCase()}${String(c.id).padStart(6, '0')}`;
 const stock = c => `PM${String(261100 + c.id * 7)}`;
 
+// Thumbnail rail: first 3 + a "+N" tile; expanded=true shows all.
+function detailThumbsHTML(imgs, dhex, activeIdx, expanded) {
+  const MAX = 3;
+  const showAll = expanded || imgs.length <= MAX + 1;
+  const shown = showAll ? imgs.length : MAX;
+  let html = imgs.slice(0, shown).map((src, i) =>
+    `<button class="detail-thumb${i === activeIdx ? ' active' : ''}" data-i="${i}" aria-label="Photo ${i + 1}">
+       <img src="${src}" data-fallback="${carPhoto(dhex, i)}" onerror="photoFallback(this)" alt="" />
+     </button>`).join('');
+  if (!showAll) {
+    html += `<button class="detail-thumb detail-thumb-more" data-more="1" aria-label="Show all photos">
+       <img src="${imgs[MAX]}" data-fallback="${carPhoto(dhex, MAX)}" onerror="photoFallback(this)" alt="" /><span>+${imgs.length - MAX}</span>
+     </button>`;
+  }
+  return html;
+}
+
+// Switch the single main image (also syncs dots, arrows, active thumbnail).
+function setDetailImage(idx) {
+  const imgs = state.detailImgs || [];
+  if (!imgs.length) return;
+  idx = Math.min(imgs.length - 1, Math.max(0, idx));
+  state.detailImgIdx = idx;
+  el.detailHero.querySelectorAll('.dslide').forEach((s, i) => s.classList.toggle('active', i === idx));
+  el.detailHero.querySelectorAll('.ddot').forEach((d, i) => d.classList.toggle('active', i === idx));
+  const prev = el.detailHero.querySelector('.dnav.prev'), next = el.detailHero.querySelector('.dnav.next');
+  if (prev) prev.classList.toggle('disabled', idx === 0);
+  if (next) next.classList.toggle('disabled', idx === imgs.length - 1);
+  el.detailThumbs.querySelectorAll('.detail-thumb').forEach(t => {
+    if (t.dataset.i != null) t.classList.toggle('active', +t.dataset.i === idx);
+  });
+}
+
 function renderDetail(car) {
   state.detailCar = car;
   const imgs = carImages(car);
 
   const dhex = COLOR_HEX[car.color];
+  state.detailImgs = imgs;
+  state.detailImgIdx = 0;
+  const multi = imgs.length > 1;
   el.detailHero.innerHTML = imgs.length
-    ? `<div class="detail-pane">
-         <img class="photo" src="${imgs[0]}" data-fallback="${carPhoto(dhex, 0)}" onerror="photoFallback(this)" alt="${car.year} ${car.model} — front" />       </div>
-       <div class="detail-pane">
-         <img class="photo" src="${imgs[1] || imgs[0]}" data-fallback="${carPhoto(dhex, 1)}" onerror="photoFallback(this)" alt="${car.year} ${car.model} — side" />       </div>`
-    : `<div class="detail-pane detail-pane--full">
-         <div class="gallery coming-soon" style="position:relative">
-           <span class="cs-mark">T</span><span class="cs-text">Photos Coming Soon</span>
-         </div>
+    ? `<div class="detail-main">
+         ${imgs.map((src, i) => `<img class="dslide${i === 0 ? ' active' : ''}" src="${src}" data-fallback="${carPhoto(dhex, i)}" onerror="photoFallback(this)" alt="${car.year} ${car.model} photo ${i + 1}" />`).join('')}
+         ${multi ? `<button class="dnav prev disabled" data-dir="-1" aria-label="Previous photo">‹</button><button class="dnav next" data-dir="1" aria-label="Next photo">›</button>` : ''}
+         ${multi ? `<div class="ddots">${imgs.map((_, i) => `<button class="ddot${i === 0 ? ' active' : ''}" data-i="${i}" aria-label="Photo ${i + 1}"></button>`).join('')}</div>` : ''}
+       </div>`
+    : `<div class="detail-main coming-soon">
+         <span class="cs-mark">T</span><span class="cs-text">Photos Coming Soon</span>
        </div>`;
-
-  const MAX_THUMBS = 3;
-  let thumbs = imgs.slice(0, MAX_THUMBS).map((src, i) =>
-    `<button class="detail-thumb${i === 0 ? ' active' : ''}" data-i="${i}" aria-label="Photo ${i + 1}">
-       <img src="${src}" data-fallback="${carPhoto(dhex, i)}" onerror="photoFallback(this)" alt="" />
-     </button>`).join('');
-  if (imgs.length > MAX_THUMBS) {
-    thumbs += `<button class="detail-thumb detail-thumb-more" data-i="${MAX_THUMBS}">
-       <img src="${imgs[MAX_THUMBS]}" data-fallback="${carPhoto(dhex, MAX_THUMBS)}" onerror="photoFallback(this)" alt="" /><span>+${imgs.length - MAX_THUMBS}</span>
-     </button>`;
-  }
-  el.detailThumbs.innerHTML = thumbs;
+  el.detailThumbs.innerHTML = detailThumbsHTML(imgs, dhex, 0, false);
 
   el.detailTitle.textContent = car.model;
   el.detailMeta.innerHTML = `${car.year}<span class="sep">|</span>${km(car.mileage)}<span class="sep">|</span>◉ ${car.dealer}`;
@@ -768,22 +805,14 @@ function onCardAreaClick(e) {
   if (dot || nav) {
     e.stopPropagation();
     const gallery = e.target.closest('.gallery');
-    const count = +gallery.dataset.count;
-    let idx = +gallery.dataset.idx;
-    // Clamp at the ends — no wrap-around past the last/first image.
-    idx = dot ? +dot.dataset.i
-              : Math.min(count - 1, Math.max(0, idx + +nav.dataset.dir));
-    gallery.dataset.idx = idx;
-    gallery.querySelectorAll('.slide').forEach((s, i) => s.classList.toggle('active', i === idx));
-    gallery.querySelectorAll('.gdot').forEach((d, i) => d.classList.toggle('active', i === idx));
-    gallery.querySelector('.gnav.prev').classList.toggle('disabled', idx === 0);
-    gallery.querySelector('.gnav.next').classList.toggle('disabled', idx === count - 1);
-    centerDots(gallery);
+    const idx = dot ? +dot.dataset.i : +gallery.dataset.idx + +nav.dataset.dir;
+    setGalleryIndex(gallery, idx);
     return;
   }
-  // Any click within the gallery controls must never open the vehicle page
-  // (covers mis-clicks between the small dots or on a disabled arrow).
+  // Any click within the gallery controls, or right after a swipe, must never
+  // open the vehicle page.
   if (e.target.closest('.gdots') || e.target.closest('.gnav')) return;
+  if (Date.now() - swipeGuard < 350) return;
 
   // Inquire, More Details, or the card itself open the vehicle page.
   const actionBtn = e.target.closest('.btn-inquire, .btn-details');
@@ -797,6 +826,30 @@ function onCardAreaClick(e) {
 el.grid.addEventListener('click', onCardAreaClick);
 el.detailRelated.addEventListener('click', onCardAreaClick);
 
+// Swipe left/right to change a card's photo (touch), with a guard so the
+// swipe-end click doesn't also open the vehicle page.
+let swipeGuard = 0;
+function addSwipe(container) {
+  let x0 = null, y0 = null, gal = null;
+  container.addEventListener('touchstart', e => {
+    const g = e.target.closest('.gallery');
+    if (!g || +g.dataset.count < 2) { gal = null; return; }
+    gal = g; x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, { passive: true });
+  container.addEventListener('touchend', e => {
+    if (!gal || x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    const dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {   // horizontal swipe
+      setGalleryIndex(gal, +gal.dataset.idx + (dx < 0 ? 1 : -1));
+      swipeGuard = Date.now();
+    }
+    gal = null; x0 = null; y0 = null;
+  }, { passive: true });
+}
+addSwipe(el.grid);
+addSwipe(el.detailRelated);
+
 // Vehicle-page controls
 el.detailBack.addEventListener('click', () => { if (location.hash) history.back(); else hideDetail(); });
 el.detailPrev.addEventListener('click', () => stepDetail(-1));
@@ -806,14 +859,31 @@ el.detailFav.addEventListener('click', () => {
   state.favorites.has(car.id) ? state.favorites.delete(car.id) : state.favorites.add(car.id);
   el.detailFav.classList.toggle('active', state.favorites.has(car.id));
 });
+// Thumbnails: click a thumb to switch the main image; "+N" expands the rail.
 el.detailThumbs.addEventListener('click', e => {
-  const t = e.target.closest('.detail-thumb'); if (!t) return;
-  const imgs = carImages(state.detailCar);
-  const leftPane = el.detailHero.querySelector('.detail-pane .photo');   // big left image
-  if (leftPane) leftPane.src = imgs[+t.dataset.i];
-  el.detailThumbs.querySelectorAll('.detail-thumb').forEach(x => x.classList.remove('active'));
-  t.classList.add('active');
+  if (e.target.closest('.detail-thumb-more')) {
+    el.detailThumbs.innerHTML = detailThumbsHTML(state.detailImgs, COLOR_HEX[state.detailCar.color], state.detailImgIdx, true);
+    return;
+  }
+  const t = e.target.closest('.detail-thumb');
+  if (t && t.dataset.i != null) setDetailImage(+t.dataset.i);
 });
+// Main image: arrows + dots + swipe.
+el.detailHero.addEventListener('click', e => {
+  const dot = e.target.closest('.ddot'), nav = e.target.closest('.dnav');
+  if (dot) setDetailImage(+dot.dataset.i);
+  else if (nav) setDetailImage(state.detailImgIdx + +nav.dataset.dir);
+});
+(() => {
+  let x0 = null, y0 = null;
+  el.detailHero.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  el.detailHero.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) setDetailImage(state.detailImgIdx + (dx < 0 ? 1 : -1));
+    x0 = null; y0 = null;
+  }, { passive: true });
+})();
 window.addEventListener('hashchange', routeFromHash);
 
 function resetAll() {

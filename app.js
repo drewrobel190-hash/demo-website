@@ -176,9 +176,9 @@ function inquirePart(idx) {
   const msg =
     `Hello Supercar Philippines!\nI'm interested in this part:\n` +
     `${p.brand} — ${p.name} (${p.category})\nPrice: ${peso(p.price)}\n\nLink: ${link}`;
-  // Copy the details (best effort), then open the client's Viber contact.
+  // Copy the details before opening the client's Viber chat.
   if (navigator.clipboard) navigator.clipboard.writeText(msg).catch(() => {});
-  window.open('https://viber.me/639999377194', '_blank', 'noopener');
+  window.location.href = VIBER_CHAT_LINK;
 }
 
 // --- State ---
@@ -487,6 +487,12 @@ function closeModal() {
 
 // --- Inquire form (sends to the dealer's Viber with the car link) ---
 const VIBER_NUMBER = '+639999377194';   // Supercar Philippines
+const VIBER_CHAT_LINK = `viber://chat?number=${encodeURIComponent(VIBER_NUMBER)}`;
+
+function isMobileDevice() {
+  return navigator.userAgentData?.mobile || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
 function openInquire(car) {
   if (!car) return;
   state.inquireCar = car;
@@ -557,9 +563,12 @@ el.inquireForm.addEventListener('submit', e => {
   e.preventDefault();
   const f = el.inquireForm;
   if (!f.checkValidity()) { f.reportValidity(); return; }
-  document.getElementById('inqReadyText').value = buildInquiryText();
+  const inquiry = buildInquiryText();
+  document.getElementById('inqReadyText').value = inquiry;
   f.hidden = true;
   el.inquireDone.hidden = false;
+  copyToClipboard(inquiry);
+  if (isMobileDevice()) window.location.href = VIBER_CHAT_LINK;
 });
 document.getElementById('copyInquiry').addEventListener('click', async e => {
   if (await copyToClipboard(document.getElementById('inqReadyText').value)) flashCopied(e.currentTarget);
@@ -567,9 +576,7 @@ document.getElementById('copyInquiry').addEventListener('click', async e => {
 document.getElementById('copyNumber').addEventListener('click', async e => {
   if (await copyToClipboard('+63 999 937 7194')) flashCopied(e.currentTarget);
 });
-// Continue to Viber is a real <a href="https://viber.me/639999377194"> — also
-// copy the inquiry to the clipboard (best effort) so it's ready to paste.
-document.getElementById('continueViber').addEventListener('click', () => {
+document.getElementById('openViber').addEventListener('click', () => {
   copyToClipboard(document.getElementById('inqReadyText').value);
 });
 

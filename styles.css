@@ -1736,7 +1736,26 @@ body.parts-view .subheader { display: none; }
 }
 .inq-fallback p { color: var(--ink-dim); font-size: 13.5px; margin-bottom: 4px; }
 .inq-number { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--ink) !important; margin-bottom: 14px !important; }
-.inq-fallback .inq-copy { max-width: 220px; margin: 0 auto; display: inline-flex; }
+.inq-copy-primary { width: 100%; margin-top: 14px; }
+.inq-viber-box {
+  display: flex; gap: 20px; align-items: center;
+  margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--paper-line);
+}
+.inq-qr {
+  width: 128px; height: 128px; flex: 0 0 auto;
+  border: 1px solid var(--paper-line); border-radius: 8px; padding: 6px; background: #fff;
+}
+.inq-viber-info { flex: 1; min-width: 0; }
+.inq-viber-label { text-transform: uppercase; letter-spacing: .08em; font-size: 11px; color: var(--ink-faint); margin-bottom: 4px; }
+.inq-viber-hint { font-size: 12.5px; color: var(--ink-dim); line-height: 1.5; margin: 8px 0 12px; }
+.inq-fallback-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.inq-fallback-actions .inq-copy { flex: 1; min-width: 120px; }
+#openViber { background: #7360f2; color: #fff; }
+#openViber:hover { background: #5b48d8; }
+@media (max-width: 620px) {
+  .inq-viber-box { flex-direction: column; align-items: stretch; text-align: center; }
+  .inq-qr { align-self: center; }
+}
 .inq-done-close { display: block; margin: 22px auto 0; background: none; border: 0; color: var(--ink-faint); font-family: inherit; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; cursor: pointer; }
 .inq-done-close:hover { color: var(--ink); }
 

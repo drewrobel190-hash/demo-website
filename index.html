@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=25" />
+  <link rel="stylesheet" href="styles.css?v=27" />
 </head>
 <body>
   <!-- ===== Top utility bar ===== -->
@@ -569,16 +569,21 @@
 
       <div class="inquire-done" id="inquireDone" hidden>
         <h3>Your inquiry is ready</h3>
-        <p>Copy your inquiry, then continue to Viber and paste it into your chat with Supercar Philippines.</p>
-        <textarea class="inq-ready" id="inqReadyText" readonly rows="8"></textarea>
-        <div class="inq-done-actions">
-          <button class="inq-copy" id="copyInquiry" type="button">Copy Inquiry</button>
-          <a class="inq-continue" id="continueViber" href="https://viber.me/639999377194" target="_blank" rel="noopener">Continue to Viber</a>
-        </div>
-        <div class="inq-fallback">
-          <p>Can't open Viber? Chat with Supercar Philippines:</p>
-          <p class="inq-number">+63 999 937 7194</p>
-          <button class="inq-copy ghost" id="copyNumber" type="button">Copy Number</button>
+        <p>Copy your inquiry below, then send it to Supercar Philippines on Viber.</p>
+        <textarea class="inq-ready" id="inqReadyText" readonly rows="7"></textarea>
+        <button class="inq-copy inq-copy-primary" id="copyInquiry" type="button">Copy Inquiry</button>
+
+        <div class="inq-viber-box">
+          <img class="inq-qr" src="img/viber_qr_code.png" alt="Scan to add Supercar Philippines on Viber" />
+          <div class="inq-viber-info">
+            <p class="inq-viber-label">Message us on Viber</p>
+            <p class="inq-number">+63 999 937 7194</p>
+            <p class="inq-viber-hint">On a computer? <strong>Scan the QR</strong> with your phone's Viber. On a phone, <strong>Copy Number</strong>, open Viber, and paste your inquiry.</p>
+            <div class="inq-fallback-actions">
+              <button class="inq-copy ghost" id="copyNumber" type="button">Copy Number</button>
+              <a class="inq-copy" id="openViber" href="viber://chat?number=%2B639999377194">Open Viber Chat</a>
+            </div>
+          </div>
         </div>
         <button class="inq-done-close" id="inquireDoneClose" type="button">Close</button>
       </div>
@@ -593,6 +598,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=27"></script>
+  <script src="app.js?v=29"></script>
 </body>
 </html>

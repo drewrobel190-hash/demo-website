@@ -1,5 +1,5 @@
 /* ============================================================
-   Teshi SportsC — pre-owned listings
+   Supercar Philippines — pre-owned listings
    Self-contained: sample inventory + filtering/sorting/modal.
    Swap `inventory` with a real API fetch when ready.
    ============================================================ */
@@ -66,18 +66,18 @@ const COLOR_HEX = {
 // --- Sample inventory ---
 // priceOnRequest: true → show "Price on Request" instead of a figure.
 const inventory = [
-  { id: 1, model: '296 GTB', year: 2024, price: 389900, mileage: 1240, color: 'Rosso', interior: 'Nero', dealer: 'Teshi Makati', location: 'Makati, Metro Manila', certified: true, isNew: true, hp: 819, drivetrain: 'RWD', engine: '3.0L V6 Hybrid' },
-  { id: 2, model: '296 GTB', year: 2023, price: 352500, mileage: 4890, color: 'Giallo', interior: 'Cuoio', dealer: 'Teshi BGC', location: 'Bonifacio Global City, Taguig', certified: true, isNew: false, hp: 819, drivetrain: 'RWD', engine: '3.0L V6 Hybrid' },
-  { id: 3, model: '296 GTS', year: 2024, price: 0, priceOnRequest: true, mileage: 640, color: 'Nero', interior: 'Rosso', dealer: 'Teshi Cebu', location: 'Cebu City, Cebu', certified: true, isNew: true, hp: 819, drivetrain: 'RWD', engine: '3.0L V6 Hybrid' },
-  { id: 4, model: 'SF90 Stradale', year: 2022, price: 549000, mileage: 6120, color: 'Rosso', interior: 'Nero', dealer: 'Teshi Manila', location: 'Ortigas, Pasig', certified: true, isNew: false, hp: 986, drivetrain: 'AWD', engine: '4.0L V8 Hybrid' },
-  { id: 5, model: 'F8 Tributo', year: 2021, price: 298500, mileage: 11240, color: 'Grigio', interior: 'Nero', dealer: 'Teshi Alabang', location: 'Alabang, Muntinlupa', certified: false, isNew: false, hp: 710, drivetrain: 'RWD', engine: '3.9L V8' },
-  { id: 6, model: 'Roma', year: 2023, price: 244900, mileage: 3980, color: 'Grigio', interior: 'Crema', dealer: 'Teshi Quezon City', location: 'Quezon City, Metro Manila', certified: true, isNew: false, hp: 612, drivetrain: 'RWD', engine: '3.9L V8' },
-  { id: 7, model: '296 GTB', year: 2023, price: 368000, mileage: 2870, color: 'Nero', interior: 'Rosso', dealer: 'Teshi Davao', location: 'Davao City, Davao del Sur', certified: true, isNew: false, hp: 819, drivetrain: 'RWD', engine: '3.0L V6 Hybrid' },
-  { id: 8, model: 'Portofino M', year: 2022, price: 231000, mileage: 8450, color: 'Bianco', interior: 'Blu', dealer: 'Teshi Iloilo', location: 'Iloilo City, Iloilo', certified: false, isNew: false, hp: 612, drivetrain: 'RWD', engine: '3.9L V8' },
-  { id: 9, model: 'F8 Tributo', year: 2022, price: 315000, mileage: 5210, color: 'Giallo', interior: 'Nero', dealer: 'Teshi Pampanga', location: 'Angeles, Pampanga', certified: true, isNew: false, hp: 710, drivetrain: 'RWD', engine: '3.9L V8' },
-  { id: 10, model: 'Roma', year: 2024, price: 262500, mileage: 780, color: 'Nero', interior: 'Cuoio', dealer: 'Teshi Makati', location: 'Makati, Metro Manila', certified: true, isNew: true, hp: 612, drivetrain: 'RWD', engine: '3.9L V8' },
-  { id: 11, model: 'SF90 Stradale', year: 2023, price: 0, priceOnRequest: true, mileage: 2010, color: 'Nero', interior: 'Rosso', dealer: 'Teshi BGC', location: 'Bonifacio Global City, Taguig', certified: true, isNew: false, hp: 986, drivetrain: 'AWD', engine: '4.0L V8 Hybrid' },
-  { id: 12, model: '296 GTS', year: 2023, price: 398500, mileage: 3320, color: 'Bianco', interior: 'Blu', dealer: 'Teshi Cebu', location: 'Cebu City, Cebu', certified: false, isNew: false, hp: 819, drivetrain: 'RWD', engine: '3.0L V6 Hybrid' },
+  { id: 1,  brand: 'Ferrari',     model: '296 GTB',      year: 2024, price: 389900, mileage: 1240,  color: 'Rosso',  interior: 'Nero',  dealer: 'Supercar PH Makati',       location: 'Makati, Metro Manila',            certified: true,  isNew: true,  hp: 819,  drivetrain: 'RWD', engine: '3.0L V6 Hybrid' },
+  { id: 2,  brand: 'Lamborghini', model: 'Huracán EVO',  year: 2023, price: 412500, mileage: 3890,  color: 'Giallo', interior: 'Nero',  dealer: 'Supercar PH BGC',          location: 'Bonifacio Global City, Taguig',   certified: true,  isNew: false, hp: 631,  drivetrain: 'AWD', engine: '5.2L V10' },
+  { id: 3,  brand: 'Ferrari',     model: '296 GTS',      year: 2024, price: 0, priceOnRequest: true, mileage: 640,   color: 'Nero',   interior: 'Rosso', dealer: 'Supercar PH Cebu',         location: 'Cebu City, Cebu',                 certified: true,  isNew: true,  hp: 819,  drivetrain: 'RWD', engine: '3.0L V6 Hybrid' },
+  { id: 4,  brand: 'Ferrari',     model: 'SF90 Stradale',year: 2022, price: 549000, mileage: 6120,  color: 'Rosso',  interior: 'Nero',  dealer: 'Supercar PH Manila',       location: 'Ortigas, Pasig',                  certified: true,  isNew: false, hp: 986,  drivetrain: 'AWD', engine: '4.0L V8 Hybrid' },
+  { id: 5,  brand: 'Porsche',     model: '911 Turbo S',  year: 2023, price: 274900, mileage: 5210,  color: 'Grigio', interior: 'Nero',  dealer: 'Supercar PH Alabang',      location: 'Alabang, Muntinlupa',             certified: true,  isNew: false, hp: 640,  drivetrain: 'AWD', engine: '3.8L Flat-6' },
+  { id: 6,  brand: 'Lamborghini', model: 'Aventador SVJ',year: 2021, price: 598000, mileage: 4980,  color: 'Giallo', interior: 'Nero',  dealer: 'Supercar PH Quezon City',  location: 'Quezon City, Metro Manila',       certified: true,  isNew: false, hp: 759,  drivetrain: 'AWD', engine: '6.5L V12' },
+  { id: 7,  brand: 'McLaren',     model: '720S',         year: 2022, price: 358000, mileage: 3870,  color: 'Nero',   interior: 'Rosso', dealer: 'Supercar PH Davao',        location: 'Davao City, Davao del Sur',       certified: true,  isNew: false, hp: 710,  drivetrain: 'RWD', engine: '4.0L V8 Twin-Turbo' },
+  { id: 8,  brand: 'Ferrari',     model: 'Roma',         year: 2023, price: 244900, mileage: 3980,  color: 'Bianco', interior: 'Crema', dealer: 'Supercar PH Iloilo',       location: 'Iloilo City, Iloilo',             certified: false, isNew: false, hp: 612,  drivetrain: 'RWD', engine: '3.9L V8' },
+  { id: 9,  brand: 'Porsche',     model: 'Taycan Turbo', year: 2022, price: 198000, mileage: 8450,  color: 'Grigio', interior: 'Nero',  dealer: 'Supercar PH Pampanga',     location: 'Angeles, Pampanga',               certified: true,  isNew: false, hp: 671,  drivetrain: 'AWD', engine: 'Dual Electric Motor' },
+  { id: 10, brand: 'McLaren',     model: 'Artura',       year: 2024, price: 289500, mileage: 780,   color: 'Nero',   interior: 'Cuoio', dealer: 'Supercar PH Makati',       location: 'Makati, Metro Manila',            certified: true,  isNew: true,  hp: 671,  drivetrain: 'RWD', engine: '3.0L V6 Hybrid' },
+  { id: 11, brand: 'Lamborghini', model: 'Huracán STO',  year: 2023, price: 0, priceOnRequest: true, mileage: 2010,  color: 'Nero',   interior: 'Rosso', dealer: 'Supercar PH BGC',          location: 'Bonifacio Global City, Taguig',   certified: true,  isNew: false, hp: 631,  drivetrain: 'RWD', engine: '5.2L V10' },
+  { id: 12, brand: 'Ferrari',     model: 'Portofino M',  year: 2023, price: 231000, mileage: 3320,  color: 'Bianco', interior: 'Blu',   dealer: 'Supercar PH Cebu',         location: 'Cebu City, Cebu',                 certified: false, isNew: false, hp: 612,  drivetrain: 'RWD', engine: '3.9L V8' },
 ];
 
 // Photo slots. Every car loads these image files from the local `img/` folder.
@@ -109,6 +109,19 @@ const SINGLES = [
 ];
 // One car (id 1) shows the real 6 angles; every other car has a single photo
 // duplicated across 6 slots, so each card gets a full 6-slot gallery.
+// Real downloaded photos, keyed by model. encodeURI handles spaces/accents in
+// the filenames so they load correctly.
+const REAL_PHOTOS = {
+  '296 GTB':       'img/296 GTB.jpeg',
+  'Huracán EVO':   'img/Huracán EVO.jpeg',
+  'Huracán STO':   'img/Huracán STO.jpeg',
+  '911 Turbo S':   'img/911 Turbo.jpeg',
+  'Aventador SVJ': 'img/Aventador SVJ.jpeg',
+};
+inventory.forEach(c => {
+  if (REAL_PHOTOS[c.model]) c.images = [encodeURI(REAL_PHOTOS[c.model])];
+});
+
 const SIX_ANGLE_CAR = 1;
 inventory.forEach((c, idx) => {
   if (!(c.images && c.images.length)) {
@@ -121,9 +134,59 @@ inventory.forEach((c, idx) => {
 function photoFallback(img) { img.onerror = null; img.src = img.dataset.fallback; }
 window.photoFallback = photoFallback;
 
+// --- Supercar Parts (basic catalogue; extend/replace with a real feed later) ---
+// Prices are in the same base units as cars (displayed in PHP via peso()).
+const parts = [
+  { name: 'Carbon Fibre Rear Wing',        brand: 'Lamborghini', category: 'Exterior', price: 9800 },
+  { name: 'Forged Alloy Wheel Set',        brand: 'Ferrari',     category: 'Wheels',   price: 12500 },
+  { name: 'Titanium Sport Exhaust',        brand: 'McLaren',     category: 'Exhaust',  price: 8600 },
+  { name: 'Carbon Ceramic Brake Kit',      brand: 'Porsche',     category: 'Brakes',   price: 11200 },
+  { name: 'Alcantara Steering Wheel',      brand: 'Ferrari',     category: 'Interior', price: 3400 },
+  { name: 'Carbon Fibre Side Skirts',      brand: 'Lamborghini', category: 'Exterior', price: 5200 },
+  { name: 'High-Flow Air Intake',          brand: 'McLaren',     category: 'Engine',   price: 2900 },
+  { name: 'Sport Bucket Seats (Pair)',     brand: 'Porsche',     category: 'Interior', price: 7400 },
+  { name: 'Forged Wheel Set — Matte',      brand: 'Lamborghini', category: 'Wheels',   price: 13800 },
+  { name: 'Front Splitter — Carbon',       brand: 'Ferrari',     category: 'Exterior', price: 6100 },
+  { name: 'Performance Brake Pads',        brand: 'McLaren',     category: 'Brakes',   price: 1800 },
+  { name: 'Valved Titanium Exhaust',       brand: 'Porsche',     category: 'Exhaust',  price: 9200 },
+];
+let partsBrand = 'All';
+function partCardHTML(p, idx) {
+  return `<article class="part-card">
+    <div class="part-media"><span class="part-cat">${p.category}</span></div>
+    <div class="part-body">
+      <div class="card-brand">${p.brand}</div>
+      <h3 class="part-name">${p.name}</h3>
+      <div class="part-price">${peso(p.price)}</div>
+      <button class="btn-inquire part-inquire" data-part="${idx}">Inquire via Viber</button>
+    </div>
+  </article>`;
+}
+function renderParts() {
+  const brands = ['All', ...[...new Set(parts.map(p => p.brand))].sort()];
+  el.partsFilters.innerHTML = brands.map(b =>
+    `<button class="parts-chip${b === partsBrand ? ' active' : ''}" data-pbrand="${b}">${b}</button>`).join('');
+  const list = partsBrand === 'All' ? parts : parts.filter(p => p.brand === partsBrand);
+  el.partsGrid.innerHTML = list.map(p => partCardHTML(p, parts.indexOf(p))).join('');
+  el.partsCount.textContent = list.length;
+}
+function inquirePart(idx) {
+  const p = parts[idx];
+  const link = location.origin + location.pathname + '#parts';
+  const msg =
+    `Hello Supercar Philippines!\nI'm interested in this part:\n` +
+    `${p.brand} — ${p.name} (${p.category})\nPrice: ${peso(p.price)}\n\nLink: ${link}`;
+  // Copy the details (best effort), then open the client's Viber contact.
+  if (navigator.clipboard) navigator.clipboard.writeText(msg).catch(() => {});
+  window.open('https://viber.me/639999377194', '_blank', 'noopener');
+}
+
 // --- State ---
 const PAGE_SIZE = 6;
-const PRICE_MAX = 600000, MILE_MAX = 30000;
+// Price bounds are in the inventory's base units; displayed in PHP via peso().
+// PRICE_MIN ≈ ₱10M, PRICE_MAX ≈ ₱50M.
+const PRICE_MIN = 175000, PRICE_MAX = 880000, PRICE_STEP = 5000;
+const MILE_MAX = 30000;
 const state = {
   sort: 'featured',
   favorites: new Set(),
@@ -131,6 +194,7 @@ const state = {
   favoritesOnly: false, // "Favorites" nav filter
   activeCat: 'model', // selected filter category in the popup
   filters: {
+    brand: new Set(),
     model: new Set(),
     dealer: new Set(),
     exterior: new Set(),
@@ -153,6 +217,9 @@ const el = {
   loadMore: document.getElementById('loadMore'),
   loadMoreWrap: document.getElementById('loadMoreWrap'),
   activeFilters: document.getElementById('activeFilters'),
+  partsFilters: document.getElementById('partsFilters'),
+  partsGrid: document.getElementById('partsGrid'),
+  partsCount: document.getElementById('partsCount'),
   clearFromEmpty: document.getElementById('clearFromEmpty'),
   // Filter popup
   filterModal: document.getElementById('filterModal'),
@@ -171,6 +238,12 @@ const el = {
   modal: document.getElementById('modal'),
   modalBody: document.getElementById('modalBody'),
   modalClose: document.getElementById('modalClose'),
+  inquireModal: document.getElementById('inquireModal'),
+  inquireClose: document.getElementById('inquireClose'),
+  inquireHead: document.getElementById('inquireHead'),
+  inquireForm: document.getElementById('inquireForm'),
+  inquireDone: document.getElementById('inquireDone'),
+  inquireDoneClose: document.getElementById('inquireDoneClose'),
   detail: document.getElementById('detailView'),
   detailBack: document.getElementById('detailBack'),
   detailPrev: document.getElementById('detailPrev'),
@@ -196,6 +269,7 @@ const priceLabel = c => c.priceOnRequest ? 'Price on Request' : peso(c.price);
 function getVisible() {
   const f = state.filters;
   let list = inventory.filter(c =>
+    (f.brand.size === 0 || f.brand.has(c.brand)) &&
     (f.model.size === 0 || f.model.has(c.model)) &&
     (f.dealer.size === 0 || f.dealer.has(c.dealer)) &&
     (f.exterior.size === 0 || f.exterior.has(c.color)) &&
@@ -279,7 +353,7 @@ function cardHTML(c) {
     </div>
     <div class="card-body">
       <div class="card-meta">${c.year}<span class="dot">·</span>${km(c.mileage)}</div>
-      <div class="card-brand">Teshi</div>
+      <div class="card-brand">${c.brand}</div>
       <div class="card-model">${c.model}</div>
       <div class="card-price ${c.priceOnRequest ? 'on-request' : ''}">${priceLabel(c)}</div>
 
@@ -368,7 +442,7 @@ function render() {
 function renderActiveFilters() {
   const f = state.filters;
   const chips = [];
-  ['model', 'dealer', 'exterior', 'interior'].forEach(k => f[k].forEach(v => chips.push([k, v])));
+  ['brand', 'model', 'dealer', 'exterior', 'interior'].forEach(k => f[k].forEach(v => chips.push([k, v])));
   if (f.certifiedOnly) chips.push(['certified', 'Certified only']);
   if (f.maxPrice < PRICE_MAX) chips.push(['price', 'Up to ' + peso(f.maxPrice)]);
   if (f.maxMileage < MILE_MAX) chips.push(['mileage', 'Up to ' + km(f.maxMileage)]);
@@ -410,6 +484,94 @@ function closeModal() {
   el.modal.hidden = true;
   document.body.style.overflow = '';
 }
+
+// --- Inquire form (sends to the dealer's Viber with the car link) ---
+const VIBER_NUMBER = '+639999377194';   // Supercar Philippines
+function openInquire(car) {
+  if (!car) return;
+  state.inquireCar = car;
+  const imgs = carImages(car);
+  const hex = COLOR_HEX[car.color];
+  el.inquireHead.innerHTML = `
+    <div class="inq-head-img">
+      <img src="${imgs[0] || ''}" data-fallback="${carPhoto(hex, 0)}" onerror="photoFallback(this)" alt="${car.year} ${car.model}" />
+    </div>
+    <div class="inq-head-info">
+      <h3>${car.model}</h3>
+      <p>${car.year} &nbsp;|&nbsp; ${km(car.mileage)}</p>
+      <p class="inq-head-dealer">◉ ${car.dealer}</p>
+    </div>
+    <div class="inq-head-price ${car.priceOnRequest ? 'on-request' : ''}">${priceLabel(car)}</div>`;
+  el.inquireForm.reset();
+  el.inquireForm.hidden = false;
+  el.inquireDone.hidden = true;
+  el.inquireModal.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+function closeInquire() { el.inquireModal.hidden = true; document.body.style.overflow = ''; }
+
+el.inquireClose.addEventListener('click', closeInquire);
+el.inquireDoneClose.addEventListener('click', closeInquire);
+el.inquireModal.addEventListener('click', e => { if (e.target === el.inquireModal) closeInquire(); });
+// Build the inquiry text (customer + full vehicle details + direct link).
+function buildInquiryText() {
+  const f = el.inquireForm, car = state.inquireCar;
+  const texts = f.querySelectorAll('input[type=text]');   // first, last, city, zip
+  const val = e => (e && e.value || '').trim();
+  const first = val(texts[0]), last = val(texts[1]), city = val(texts[2]), zip = val(texts[3]);
+  const email = val(f.querySelector('input[type=email]'));
+  const tel = val(f.querySelector('input[type=tel]'));
+  const note = val(f.querySelector('textarea'));
+  const contactBy = f.querySelectorAll('input[name=contactBy]')[0].checked ? 'Email' : 'Telephone';
+  const link = location.origin + location.pathname + '#vehicle/' + carSlug(car);
+  return `Hello Supercar Philippines!\n` +
+    `I'm interested in this vehicle:\n` +
+    `${car.brand} ${car.model}\n` +
+    `Year: ${car.year}\n` +
+    `Price: ${priceLabel(car)}\n\n` +
+    `Customer:\n` +
+    `Name: ${first} ${last}\n` +
+    `Phone: ${tel}\n` +
+    `Email: ${email}\n` +
+    `City: ${city}${zip ? ' ' + zip : ''}\n` +
+    `Preferred contact: ${contactBy}\n\n` +
+    `Message:\n${note || "I'm interested in this vehicle."}\n\n` +
+    `Vehicle link:\n${link}`;
+}
+async function copyToClipboard(text) {
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch (err) {
+    const ta = document.getElementById('inqReadyText');
+    if (ta) { ta.focus(); ta.select(); try { document.execCommand('copy'); return true; } catch (e) {} }
+    return false;
+  }
+}
+function flashCopied(btn) {
+  const old = btn.textContent;
+  btn.textContent = 'Copied ✓';
+  setTimeout(() => { btn.textContent = old; }, 1600);
+}
+
+// Submit → prepare the inquiry text, then show the "ready" screen.
+el.inquireForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const f = el.inquireForm;
+  if (!f.checkValidity()) { f.reportValidity(); return; }
+  document.getElementById('inqReadyText').value = buildInquiryText();
+  f.hidden = true;
+  el.inquireDone.hidden = false;
+});
+document.getElementById('copyInquiry').addEventListener('click', async e => {
+  if (await copyToClipboard(document.getElementById('inqReadyText').value)) flashCopied(e.currentTarget);
+});
+document.getElementById('copyNumber').addEventListener('click', async e => {
+  if (await copyToClipboard('+63 999 937 7194')) flashCopied(e.currentTarget);
+});
+// Continue to Viber is a real <a href="https://viber.me/639999377194"> — also
+// copy the inquiry to the clipboard (best effort) so it's ready to paste.
+document.getElementById('continueViber').addEventListener('click', () => {
+  copyToClipboard(document.getElementById('inqReadyText').value);
+});
 
 // --- Vehicle detail view ---
 const vin = c => `VLC${c.year}${c.model.replace(/\W/g, '').slice(0, 2).toUpperCase()}${String(c.id).padStart(6, '0')}`;
@@ -467,6 +629,7 @@ function renderDetail(car) {
        </div>`;
   el.detailThumbs.innerHTML = detailThumbsHTML(imgs, dhex, 0, false);
 
+  const db = document.getElementById('detailBrand'); if (db) db.textContent = car.brand;
   el.detailTitle.textContent = car.model;
   el.detailMeta.innerHTML = `${car.year}<span class="sep">|</span>${km(car.mileage)}<span class="sep">|</span>◉ ${car.dealer}`;
   el.detailIds.innerHTML = `VIN# <strong>${vin(car)}</strong><span class="sep">|</span>STOCK# <strong>${stock(car)}</strong>`;
@@ -547,7 +710,7 @@ function stepDetail(dir) {
 // and the vehicle page (#vehicle/...). Home is a separate screen, never merged
 // with the listings.
 function showListings() {
-  document.body.classList.remove('home-view');
+  document.body.classList.remove('home-view', 'parts-view');
   if (location.hash !== '#browse' && !location.hash.startsWith('#vehicle')) {
     history.replaceState(null, '', '#browse');
   }
@@ -557,10 +720,13 @@ function routeFromHash() {
   const m = h.match(/^#vehicle\/.*-(\d+)$/);
   if (m) {
     const car = inventory.find(c => c.id === +m[1]);
-    if (car) { document.body.classList.remove('home-view'); showDetail(car); return; }
+    if (car) { document.body.classList.remove('home-view', 'parts-view'); showDetail(car); return; }
   }
   hideDetail();
-  document.body.classList.toggle('home-view', h === '' || h === '#' || h === '#home');
+  const isParts = h === '#parts';
+  document.body.classList.toggle('parts-view', isParts);
+  document.body.classList.toggle('home-view', !isParts && (h === '' || h === '#' || h === '#home'));
+  if (isParts) renderParts();
 }
 
 // --- Events ---
@@ -580,6 +746,7 @@ el.loadMore.addEventListener('click', () => { state.shown += PAGE_SIZE; render()
 /* ===== Filter popup ===== */
 const uniq = arr => [...new Set(arr)];
 const FILTER_CATS = [
+  { key: 'brand',    label: 'Brand',          type: 'list', vals: () => uniq(inventory.map(c => c.brand)).sort() },
   { key: 'model',    label: 'Model',          type: 'list', vals: () => uniq(inventory.map(c => c.model)) },
   { key: 'dealer',   label: 'Dealer',         type: 'list', vals: () => uniq(inventory.map(c => c.dealer)).sort() },
   { key: 'price',    label: 'Price',          type: 'price' },
@@ -617,7 +784,7 @@ function renderFilterOptions() {
       ).join('')}</div>`;
   } else if (cat.type === 'price') {
     html = `<label class="filter-label">Max Price</label>
-      <input type="range" id="filterRange" min="150000" max="${PRICE_MAX}" step="10000" value="${f.maxPrice}" />
+      <input type="range" id="filterRange" min="${PRICE_MIN}" max="${PRICE_MAX}" step="${PRICE_STEP}" value="${f.maxPrice}" />
       <div class="range-value">Up to <span>${peso(f.maxPrice)}</span></div>`;
   } else if (cat.type === 'mileage') {
     html = `<label class="filter-label">Max Mileage</label>
@@ -653,6 +820,7 @@ el.filterOptions.addEventListener('input', e => {
   const cat = FILTER_CATS.find(c => c.key === state.activeCat);
   const f = state.filters;
   const t = e.target;
+  if (t.classList.contains('dr-min') || t.classList.contains('dr-max')) return; // handled by wireDualRange
   if (t.id === 'filterTypeFilter') {                       // type-to-filter
     const q = t.value.toLowerCase();
     el.filterOptions.querySelectorAll('.filter-optlist .filter-check').forEach(row =>
@@ -675,13 +843,25 @@ el.filterOptions.addEventListener('input', e => {
 
 el.filterClear.addEventListener('click', () => { resetAll(); renderFilterOptions(); });
 
+// Parts: brand chips filter the grid; each card inquires via Viber.
+el.partsFilters.addEventListener('click', e => {
+  const chip = e.target.closest('.parts-chip');
+  if (!chip) return;
+  partsBrand = chip.dataset.pbrand;
+  renderParts();
+});
+el.partsGrid.addEventListener('click', e => {
+  const btn = e.target.closest('.part-inquire');
+  if (btn) inquirePart(+btn.dataset.part);
+});
+
 // Remove a single filter by clicking its chip.
 el.activeFilters.addEventListener('click', e => {
   const chip = e.target.closest('.afilter-chip');
   if (!chip) return;
   const k = chip.dataset.remove, v = chip.dataset.val;
   const f = state.filters;
-  if (['model', 'dealer', 'exterior', 'interior'].includes(k)) f[k].delete(v);
+  if (['brand', 'model', 'dealer', 'exterior', 'interior'].includes(k)) f[k].delete(v);
   else if (k === 'certified') f.certifiedOnly = false;
   else if (k === 'price') f.maxPrice = PRICE_MAX;
   else if (k === 'mileage') f.maxMileage = MILE_MAX;
@@ -713,12 +893,12 @@ function openInfo(title, body) {
   document.body.style.overflow = 'hidden';
 }
 const INFO = {
-  why: ['Why Teshi Approved', `<p>Every Teshi SportsC vehicle passes a rigorous <strong>142-point inspection</strong> and comes with a <strong>24-month warranty</strong>. Full service history, verified mileage, and a certificate of authenticity — so you buy with total confidence.</p>`],
-  value: ['Value Your Car', `<p>Thinking of selling or trading in? Share the model, year, and mileage and our specialists return a competitive valuation within 24 hours.</p><p>Call <strong>(+63) 2 8555 0100</strong> or email <strong>sell@teshi-sportsc.ph</strong>.</p>`],
-  sell: ['Sell Your Car', `<p>Consign or sell your performance car through Teshi SportsC — we handle photography, listing, and qualified buyers.</p><p>Email <strong>sell@teshi-sportsc.ph</strong> to get started.</p>`],
-  book: ['Book a Viewing', `<p>Arrange a private viewing at any Teshi SportsC showroom.</p><p>Call <strong>(+63) 2 8555 0100</strong> or email <strong>viewings@teshi-sportsc.ph</strong> with the vehicle and a preferred time.</p>`],
-  contact: ['Contact', `<p><strong>Teshi SportsC — Makati</strong><br>Ayala Avenue, Makati, Metro Manila</p><p>(+63) 2 8555 0100<br>hello@teshi-sportsc.ph</p><p>Mon–Fri 9:00–18:00 · Sat 9:00–17:00 · Sun closed</p>`],
-  dealer: ['Dealer Login', `<p>The dealer portal is available to authorised Teshi SportsC partners.</p><p>Contact <strong>partners@teshi-sportsc.ph</strong> for access.</p>`],
+  why: ['Why Supercar Approved', `<p>Every Supercar Philippines vehicle passes a rigorous <strong>142-point inspection</strong> and comes with a <strong>24-month warranty</strong>. Full service history, verified mileage, and a certificate of authenticity — so you buy with total confidence.</p>`],
+  value: ['Value Your Car', `<p>Thinking of selling or trading in? Share the model, year, and mileage and our specialists return a competitive valuation within 24 hours.</p><p>Call <strong>+63 999 937 7194 (Viber)</strong> or email <strong>sell@supercarphilippines.ph</strong>.</p>`],
+  sell: ['Sell Your Car', `<p>Consign or sell your performance car through Supercar Philippines — we handle photography, listing, and qualified buyers.</p><p>Email <strong>sell@supercarphilippines.ph</strong> to get started.</p>`],
+  book: ['Book a Viewing', `<p>Arrange a private viewing at any Supercar Philippines showroom.</p><p>Call <strong>+63 999 937 7194 (Viber)</strong> or email <strong>viewings@supercarphilippines.ph</strong> with the vehicle and a preferred time.</p>`],
+  contact: ['Contact', `<p><strong>Supercar Philippines — Makati</strong><br>Ayala Avenue, Makati, Metro Manila</p><p>+63 999 937 7194 (Viber)<br>hello@supercarphilippines.ph</p><p>Mon–Fri 9:00–18:00 · Sat 9:00–17:00 · Sun closed</p>`],
+  dealer: ['Dealer Login', `<p>The dealer portal is available to authorised Supercar Philippines partners.</p><p>Contact <strong>partners@supercarphilippines.ph</strong> for access.</p>`],
   'save-search': ['Search Saved', `<p>We'll notify you the moment a car matching your filters becomes available.</p><p>Add your email in <strong>Account → Saved Searches</strong> to receive alerts.</p>`],
 };
 const scrollToEl = sel => { const t = document.querySelector(sel); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
@@ -740,8 +920,27 @@ document.addEventListener('click', e => {
   if (!el.megaMenu.hidden) closeMenu();
   switch (action) {
     case 'home': location.hash = 'home'; window.scrollTo({ top: 0 }); break;
+    case 'parts': location.hash = 'parts'; window.scrollTo({ top: 0 }); break;
     case 'browse': showListings(); setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 60); break;
     case 'models': showListings(); setTimeout(() => scrollToEl('.results'), 80); break;
+    case 'brand-filter': {
+      // Replace the brand selection but keep other active filters (e.g. budget)
+      // so "Lamborghini + Under ₱25M" combine.
+      state.filters.brand.clear();
+      state.filters.brand.add(a.dataset.brand);
+      state.favoritesOnly = false;
+      showListings(); state.shown = PAGE_SIZE; render();
+      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 80);
+      break;
+    }
+    case 'budget': {
+      // Set the max budget but keep other active filters (e.g. brand).
+      state.filters.maxPrice = +a.dataset.max;
+      state.favoritesOnly = false;
+      showListings(); state.shown = PAGE_SIZE; render();
+      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 80);
+      break;
+    }
     case 'favorites':
       showListings(); setFavorites(true);
       setTimeout(() => scrollToEl('.results'), 80);
@@ -763,7 +962,7 @@ document.addEventListener('click', e => {
   const val = link.textContent.trim();
   const isModel = !!link.closest('#modelsDir');
   const f = state.filters;
-  f.model.clear(); f.dealer.clear(); f.exterior.clear(); f.interior.clear();
+  f.brand.clear(); f.model.clear(); f.dealer.clear(); f.exterior.clear(); f.interior.clear();
   f.certifiedOnly = false; f.maxPrice = PRICE_MAX; f.maxMileage = MILE_MAX;
   state.favoritesOnly = false; state.shown = PAGE_SIZE;
   document.getElementById('favBack').hidden = true;
@@ -814,10 +1013,17 @@ function onCardAreaClick(e) {
   if (e.target.closest('.gdots') || e.target.closest('.gnav')) return;
   if (Date.now() - swipeGuard < 350) return;
 
-  // Inquire, More Details, or the card itself open the vehicle page.
-  const actionBtn = e.target.closest('.btn-inquire, .btn-details');
+  // Inquire → open the inquiry form. More Details / the card → vehicle page.
+  const inquireBtn = e.target.closest('.btn-inquire');
+  if (inquireBtn) {
+    e.stopPropagation();
+    const car = inventory.find(c => c.id === +inquireBtn.dataset.id);
+    if (car) openInquire(car);
+    return;
+  }
+  const detailsBtn = e.target.closest('.btn-details');
   const card = e.target.closest('.card');
-  const id = actionBtn ? +actionBtn.dataset.id : (card ? +card.dataset.id : null);
+  const id = detailsBtn ? +detailsBtn.dataset.id : (card ? +card.dataset.id : null);
   if (id != null) {
     const car = inventory.find(c => c.id === id);
     if (car) openDetail(car);
@@ -859,6 +1065,9 @@ el.detailFav.addEventListener('click', () => {
   state.favorites.has(car.id) ? state.favorites.delete(car.id) : state.favorites.add(car.id);
   el.detailFav.classList.toggle('active', state.favorites.has(car.id));
 });
+el.detail.addEventListener('click', e => {
+  if (e.target.closest('.detail-inquire')) openInquire(state.detailCar);
+});
 // Thumbnails: click a thumb to switch the main image; "+N" expands the rail.
 el.detailThumbs.addEventListener('click', e => {
   if (e.target.closest('.detail-thumb-more')) {
@@ -888,7 +1097,7 @@ window.addEventListener('hashchange', routeFromHash);
 
 function resetAll() {
   const f = state.filters;
-  f.model.clear(); f.dealer.clear(); f.exterior.clear(); f.interior.clear();
+  f.brand.clear(); f.model.clear(); f.dealer.clear(); f.exterior.clear(); f.interior.clear();
   f.certifiedOnly = false; f.maxPrice = PRICE_MAX; f.maxMileage = MILE_MAX;
   state.favoritesOnly = false;
   document.querySelectorAll('[data-action="favorites"]').forEach(x => x.classList.remove('active'));
@@ -908,6 +1117,7 @@ document.addEventListener('keydown', e => {
   closeModal();
   if (!el.filterModal.hidden) closeFilters();
   if (!el.megaMenu.hidden) closeMenu();
+  if (!el.inquireModal.hidden) closeInquire();
 });
 
 // --- Header: solidifies on scroll; sticky sub-header slides in further down ---

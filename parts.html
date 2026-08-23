@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supercar Parts — Supercar Philippines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=10" />
+</head>
+<body class="parts-view">
+  <!-- ===== Top utility bar ===== -->
+  <div class="utility-bar">
+    <div class="container utility-inner">
+      <span>Philippines</span>
+      <div class="utility-links">
+        <a href="#" data-action="dealer">Dealer Login</a>
+        <a href="#" data-action="sell">Sell Your Car</a>
+        <a href="#" data-action="contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="brand">
+        <span class="brand-mark">SP</span>
+        <span class="brand-name">SUPERCAR<span class="brand-sub">PHILIPPINES</span></span>
+      </a>
+      <nav class="main-nav">
+        <a href="cars.html">Cars</a>
+        <a href="parts.html">Parts</a>
+        <a href="cars.html#favorites">Favorites</a>
+        <a href="#" data-action="value">Value Your Car</a>
+      </nav>
+      <button class="header-cta" data-action="book">Book a Viewing</button>
+      <a class="header-back" href="cars.html"><span aria-hidden="true">‹</span>&nbsp;Available Cars</a>
+    </div>
+  </header>
+
+  <!-- ===== Supercar Parts ===== -->
+  <section class="parts-section" id="partsView">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="index.html">Home</a><span>/</span>
+        <span class="current">Parts</span>
+      </nav>
+      <div class="parts-head">
+        <h1>Supercar Parts</h1>
+        <p><span id="partsCount">0</span> genuine &amp; performance parts — organised by brand.</p>
+      </div>
+      <div class="parts-filters" id="partsFilters"></div>
+      <div class="parts-grid" id="partsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container footer-cols">
+      <div>
+        <h4>Inventory</h4>
+        <a href="cars.html">All Vehicles</a>
+        <a href="cars.html">Certified Pre-Owned</a>
+        <a href="cars.html">New Arrivals</a>
+        <a href="parts.html">Parts</a>
+      </div>
+      <div>
+        <h4>Buying</h4>
+        <a href="#">Financing</a>
+        <a href="#">Ownership</a>
+        <a href="#">Delivery</a>
+        <a href="#">Trade-In</a>
+      </div>
+      <div>
+        <h4>Selling</h4>
+        <a href="#" data-action="value">Value Your Car</a>
+        <a href="#" data-action="sell">Consignment</a>
+        <a href="#" data-action="sell">Sell Direct</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#" data-action="why">Why Approved</a>
+        <a href="index.html">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#" data-action="contact">Contact</a>
+        <a href="#" data-action="book">Book a Viewing</a>
+        <a href="#">FAQ</a>
+        <a href="#" data-action="dealer">Dealer Login</a>
+      </div>
+    </div>
+
+    <div class="container footer-legal">
+      <p class="legal-copy">
+        Supercar Philippines — a demonstration project. Not affiliated with, endorsed by,
+        or connected to any vehicle manufacturer. All names, prices, and vehicles shown
+        are fictional and for illustration only.
+      </p>
+      <div class="legal-links">
+        <span>© 2026 Supercar Philippines</span>
+        <a href="#">Legal</a>
+        <a href="#">Privacy</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Accessibility</a>
+        <span class="region">◉ Philippines</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Back to top ===== -->
+  <button class="to-top" id="toTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- ===== Slide-out menu ===== -->
+  <div class="mega-menu" id="megaMenu" hidden>
+    <button class="mega-close" id="megaClose" aria-label="Close menu">&times;</button>
+    <div class="mega-inner">
+      <div class="mega-left">
+        <p class="mega-eyebrow">Supercar Philippines</p>
+        <nav class="mega-nav" id="megaNav">
+          <a href="index.html" data-img="img/1.svg" data-video="videos/menu%20videos/5309353-hd_1920_1080_25fps.mp4">Home</a>
+          <a href="cars.html" data-img="img/2.svg" data-video="videos/menu%20videos/7727416-hd_1920_1080_25fps.mp4">Cars</a>
+          <a href="parts.html" class="active" data-img="img/3.svg" data-video="videos/menu%20videos/14209289_3840_2160_24fps.mp4">Parts</a>
+          <a href="#" data-img="img/4.svg" data-action="value" data-video="videos/menu%20videos/14209313_3840_2160_24fps.mp4">Value Your Car</a>
+        </nav>
+      </div>
+      <div class="mega-right" id="megaRight">
+        <video class="mega-video is-active" muted loop playsinline autoplay preload="auto"
+               src="videos/menu%20videos/14209289_3840_2160_24fps.mp4"></video>
+        <video class="mega-video" muted loop playsinline preload="metadata"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Quick View / Info Modal ===== -->
+  <div class="modal-backdrop" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="js/shared.js?v=5"></script>
+  <script src="js/parts.js?v=1"></script>
+</body>
+</html>

@@ -1672,6 +1672,7 @@ body.parts-view .subheader { display: none; }
 .part-card {
   background: var(--paper); border: 1px solid var(--paper-line); border-radius: var(--radius);
   overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s;
+  display: flex; flex-direction: column;   /* let the body stretch so the button can pin to the bottom */
 }
 .part-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(20,20,26,.12); border-color: #d0d0d6; }
 .part-media {
@@ -1680,10 +1681,10 @@ body.parts-view .subheader { display: none; }
   display: grid; place-items: center;
 }
 .part-cat { color: rgba(255,255,255,.85); text-transform: uppercase; letter-spacing: .18em; font-size: 12px; font-weight: 600; }
-.part-body { padding: 20px; }
+.part-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
 .part-name { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--ink); margin: 3px 0 10px; line-height: 1.2; }
 .part-price { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 16px; }
-.part-inquire { width: 100%; }
+.part-inquire { width: 100%; margin-top: auto; }   /* pin to the very bottom of the card */
 
 /* ===== Inquire form ===== */
 .inquire-modal {

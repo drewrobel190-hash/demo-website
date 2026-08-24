@@ -47,16 +47,50 @@ function renderParts() {
   partsEl.count.textContent = list.length;
 }
 
-// Part inquiry: copy the details, then open the client's Viber chat.
+// Part inquiry — mirrors the cars flow: build the message (part + type + price +
+// direct link), auto-copy it, show the "ready" screen with Copy Inquiry + Open
+// Viber; on mobile, open Viber straight away too.
+const partModal = document.getElementById('partInquireModal');
+function buildPartText(p) {
+  const link = location.origin + location.pathname;
+  return `Hello Supercar Philippines!\n` +
+    `I'm interested in this part:\n` +
+    `${p.brand} ${p.name}\n` +
+    `Type: ${p.category}\n` +
+    `Price: ${peso(p.price)}\n\n` +
+    `Part link:\n${link}`;
+}
 function inquirePart(idx) {
   const p = parts[idx];
-  const link = location.origin + location.pathname;
-  const msg =
-    `Hello Supercar Philippines!\nI'm interested in this part:\n` +
-    `${p.brand} — ${p.name} (${p.category})\nPrice: ${peso(p.price)}\n\nLink: ${link}`;
-  copyToClipboard(msg);
-  window.location.href = VIBER_CHAT_LINK;
+  const text = buildPartText(p);
+  document.getElementById('partReadyText').value = text;
+  partModal.hidden = false;
+  document.body.style.overflow = 'hidden';
+  copyToClipboard(text);
+  if (isMobileDevice()) window.location.href = VIBER_CHAT_LINK;
 }
+function closePartInquire() { partModal.hidden = true; document.body.style.overflow = ''; }
+document.getElementById('partInquireClose').addEventListener('click', closePartInquire);
+document.getElementById('partInquireDoneClose').addEventListener('click', closePartInquire);
+partModal.addEventListener('click', e => { if (e.target === partModal) closePartInquire(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !partModal.hidden) closePartInquire(); });
+document.getElementById('partCopyInquiry').addEventListener('click', async e => {
+  if (await copyToClipboard(document.getElementById('partReadyText').value)) flashCopied(e.currentTarget);
+});
+document.getElementById('partCopyNumber').addEventListener('click', async e => {
+  if (await copyToClipboard('+63 999 937 7194')) flashCopied(e.currentTarget);
+});
+// Open Viber button: auto-copy the inquiry, THEN open the exact working deep link.
+document.getElementById('partOpenViber').addEventListener('click', async e => {
+  e.preventDefault();
+  const link = e.currentTarget.getAttribute('href');
+  const ok = await copyToClipboard(document.getElementById('partReadyText').value);
+  if (!ok) {
+    const hint = document.querySelector('#partInquireModal .inq-viber-hint');
+    if (hint) hint.textContent = 'Couldn’t copy automatically — tap “Copy Inquiry”, then paste it in Viber.';
+  }
+  window.location.href = link;
+});
 
 partsEl.filters.addEventListener('click', e => {
   const chip = e.target.closest('.parts-chip');

@@ -143,6 +143,33 @@
     </div>
   </div>
 
+  <!-- ===== Part inquiry (copy + Viber) ===== -->
+  <div class="inquire-modal" id="partInquireModal" hidden>
+    <div class="inquire-dialog">
+      <button class="inquire-close" id="partInquireClose" aria-label="Close">&times;</button>
+      <div class="inquire-done" style="display:block">
+        <h3>Your parts inquiry is ready</h3>
+        <p>Copy your inquiry below, then send it to Supercar Philippines on Viber.</p>
+        <textarea class="inq-ready" id="partReadyText" readonly rows="6"></textarea>
+        <button class="inq-copy inq-copy-primary" id="partCopyInquiry" type="button">Copy Inquiry</button>
+
+        <div class="inq-viber-box">
+          <img class="inq-qr" src="img/viber_qr_code.png" alt="Scan to add Supercar Philippines on Viber" />
+          <div class="inq-viber-info">
+            <p class="inq-viber-label">Message us on Viber</p>
+            <p class="inq-number">+63 999 937 7194</p>
+            <p class="inq-viber-hint">On a computer? <strong>Scan the QR</strong> with your phone's Viber. On a phone, <strong>Copy Number</strong>, open Viber, and paste your inquiry.</p>
+            <div class="inq-fallback-actions">
+              <button class="inq-copy ghost" id="partCopyNumber" type="button">Copy Number</button>
+              <a class="inq-copy" id="partOpenViber" href="viber://chat?number=%2B639999377194">Open Viber Chat</a>
+            </div>
+          </div>
+        </div>
+        <button class="inq-done-close" id="partInquireDoneClose" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== Quick View / Info Modal ===== -->
   <div class="modal-backdrop" id="modal" hidden>
     <div class="modal" role="dialog" aria-modal="true">
@@ -152,6 +179,6 @@
   </div>
 
   <script src="js/shared.js?v=5"></script>
-  <script src="js/parts.js?v=1"></script>
+  <script src="js/parts.js?v=2"></script>
 </body>
 </html>

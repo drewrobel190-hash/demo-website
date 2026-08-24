@@ -1682,7 +1682,8 @@ body.parts-view .subheader { display: none; }
 }
 .part-cat { color: rgba(255,255,255,.85); text-transform: uppercase; letter-spacing: .18em; font-size: 12px; font-weight: 600; }
 .part-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
-.part-name { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--ink); margin: 3px 0 10px; line-height: 1.2; }
+.part-name { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--ink); margin: 3px 0 10px; line-height: 1.2; min-height: 2.4em; }
+.part-inquire { white-space: nowrap; }   /* keep the button text on one line so it never grows */
 .part-price { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 16px; }
 .part-inquire { width: 100%; margin-top: auto; }   /* pin to the very bottom of the card */
 

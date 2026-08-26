@@ -9,6 +9,7 @@ function vtoast(msg) {
   t.textContent = msg; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2200);
 }
 const bucket = () => (window.SB && SB.cfg && SB.cfg.vehicleBucket) || 'vehicle-images';
+const ALLOWED_BRANDS = ['Lamborghini', 'Ferrari', 'Porsche', 'McLaren'];
 const state = { id: new URLSearchParams(location.search).get('id'), images: [] };
 
 (async function initVehicle() {
@@ -76,7 +77,8 @@ async function save(publish) {
     const id = await ensureVehicle();
     const payload = collectForm();
     if (publish) payload.status = 'published';
-    if (!payload.brand || !payload.model) { vtoast('Brand and Model are required.'); return; }
+    if (!ALLOWED_BRANDS.includes(payload.brand)) { vtoast('Please choose a brand from the list.'); return; }
+    if (!payload.model) { vtoast('Model is required.'); return; }
     const { error } = await SB.client.from('vehicles').update(payload).eq('id', id);
     if (error) throw error;
     $v('f_status').value = payload.status;

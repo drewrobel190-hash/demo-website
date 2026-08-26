@@ -350,8 +350,14 @@ document.getElementById('openViber').addEventListener('click', async e => {
 });
 
 /* ---------- Vehicle detail view ---------- */
-const vin = c => `VLC${c.year}${c.model.replace(/\W/g, '').slice(0, 2).toUpperCase()}${String(c.id).padStart(6, '0')}`;
-const stock = c => `PM${String(261100 + c.id * 7)}`;
+// A vehicle id may be a small integer (static fallback) or a UUID string
+// (Supabase). idNum() derives a stable number so VIN/STOCK/phone stay clean for
+// both. cidOf() resolves a data-* attribute string back to the real c.id value
+// (number for static, string for DB) so Set membership/find comparisons match.
+const idNum = c => { const n = Number(c.id); return Number.isFinite(n) ? n : [...String(c.id)].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 0); };
+const cidOf = raw => { const c = inventory.find(x => String(x.id) === String(raw)); return c ? c.id : raw; };
+const vin = c => `VLC${c.year}${c.model.replace(/\W/g, '').slice(0, 2).toUpperCase()}${String(idNum(c)).padStart(6, '0').slice(-6)}`;
+const stock = c => `PM${String(261100 + (idNum(c) % 900000))}`;
 
 function detailThumbsHTML(imgs, dhex, activeIdx, expanded) {
   const MAX = 3;
@@ -426,7 +432,7 @@ function renderDetail(car) {
       <div class="showroom-cols">
         <div>
           <p class="showroom-label">Contacts</p>
-          <a href="#">(+63) 2 8555 0${String(100 + car.id)}</a>
+          <a href="#">(+63) 2 8555 0${String(100 + (idNum(car) % 900))}</a>
           <p>${car.dealer}, ${car.location}</p>
           <a href="#">supercarphilippines.ph</a>
         </div>
@@ -827,7 +833,7 @@ function onCardAreaClick(e) {
   const favBtn = e.target.closest('[data-fav]');
   if (favBtn) {
     e.stopPropagation();
-    const id = +favBtn.dataset.fav;
+    const id = cidOf(favBtn.dataset.fav);
     state.favorites.has(id) ? state.favorites.delete(id) : state.favorites.add(id);
     favBtn.classList.toggle('active');
     saveFavorites();
@@ -836,7 +842,7 @@ function onCardAreaClick(e) {
   const cmpBtn = e.target.closest('[data-compare]');
   if (cmpBtn) {
     e.stopPropagation();
-    toggleCompare(+cmpBtn.dataset.compare);
+    toggleCompare(cidOf(cmpBtn.dataset.compare));
     return;
   }
   const dot = e.target.closest('.gdot');
@@ -854,15 +860,15 @@ function onCardAreaClick(e) {
   const inquireBtn = e.target.closest('.btn-inquire');
   if (inquireBtn) {
     e.stopPropagation();
-    const car = inventory.find(c => c.id === +inquireBtn.dataset.id);
+    const car = inventory.find(c => String(c.id) === inquireBtn.dataset.id);
     if (car) openInquire(car);
     return;
   }
   const detailsBtn = e.target.closest('.btn-details');
   const card = e.target.closest('.card');
-  const id = detailsBtn ? +detailsBtn.dataset.id : (card ? +card.dataset.id : null);
+  const id = detailsBtn ? detailsBtn.dataset.id : (card ? card.dataset.id : null);
   if (id != null) {
-    const car = inventory.find(c => c.id === id);
+    const car = inventory.find(c => String(c.id) === id);
     if (car) openDetail(car);
   }
 }
@@ -959,7 +965,7 @@ function toggleCompare(id) {
 }
 function syncCompareUI() {
   document.querySelectorAll('[data-compare]').forEach(b =>
-    b.classList.toggle('active', state.compare.has(+b.dataset.compare)));
+    b.classList.toggle('active', state.compare.has(cidOf(b.dataset.compare))));
   renderCompareBar();
 }
 function renderCompareBar() {
@@ -1066,7 +1072,7 @@ function closeCompare() {
   if (modalBody) modalBody.addEventListener('click', e => {
     const rm = e.target.closest('[data-cmp-remove]');
     if (!rm) return;
-    state.compare.delete(+rm.dataset.cmpRemove);
+    state.compare.delete(cidOf(rm.dataset.cmpRemove));
     saveCompare();
     syncCompareUI();
     renderCompareModal();

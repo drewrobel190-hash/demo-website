@@ -247,6 +247,8 @@ document.addEventListener('click', e => {
   if (!a) return;
   const action = a.dataset.action;
   if (_megaMenu && !_megaMenu.hidden) closeMenu();
+  // Dealer Login goes to the real admin sign-in (Supabase Auth).
+  if (action === 'dealer') { e.preventDefault(); window.location.href = 'admin/index.html'; return; }
   if (INFO[action]) { e.preventDefault(); openInfo(INFO[action][0], INFO[action][1]); }
 });
 

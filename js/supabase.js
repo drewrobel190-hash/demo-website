@@ -9,7 +9,10 @@
    ============================================================ */
 window.SB = (function () {
   const cfg = window.SUPABASE_CONFIG || {};
-  const url = (cfg.url || '').trim();
+  // Normalize the URL: the JS client needs the base project origin only, so
+  // strip a trailing "/rest/v1/" (the REST endpoint) or any trailing slash if
+  // one was pasted in by mistake.
+  const url = (cfg.url || '').trim().replace(/\/rest\/v1\/?$/i, '').replace(/\/+$/, '');
   const key = (cfg.anonKey || '').trim();
   const looksReal = url && key &&
     !/YOUR_/i.test(url) && !/YOUR_/i.test(key) &&

@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=10" />
+  <link rel="stylesheet" href="css/styles.css?v=14" />
 </head>
 <body class="home-view">
   <!-- ===== Top utility bar ===== -->
@@ -29,7 +29,7 @@
         <span></span><span></span><span></span>
       </button>
       <a href="index.html" class="brand">
-        <span class="brand-mark">SP</span>
+        <img class="brand-logo" src="img/logo/777800988_1519762656961604_8598645148948029679_n.jpg" alt="Supercar Philippines" />
         <span class="brand-name">SUPERCAR<span class="brand-sub">PHILIPPINES</span></span>
       </a>
       <nav class="main-nav">
@@ -175,6 +175,10 @@
 
   <!-- ===== Footer ===== -->
   <footer class="site-footer">
+    <div class="container footer-brand">
+      <img src="img/logo/777800988_1519762656961604_8598645148948029679_n.jpg" alt="Supercar Philippines" />
+      <span>SUPERCAR PHILIPPINES</span>
+    </div>
     <div class="container footer-cols">
       <div>
         <h4>Inventory</h4>
@@ -265,7 +269,11 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js?v=1"></script>
+  <script src="js/supabase.js?v=1"></script>
   <script src="js/shared.js?v=5"></script>
-  <script src="js/home.js?v=2"></script>
+  <script src="js/data.js?v=1"></script>
+  <script src="js/home.js?v=3"></script>
 </body>
 </html>

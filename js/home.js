@@ -7,7 +7,7 @@
    ============================================================ */
 
 // "Available now" stat in the hero.
-(() => { const hc = document.getElementById('homeCount'); if (hc) hc.textContent = inventory.length; })();
+function setHomeCount() { const hc = document.getElementById('homeCount'); if (hc) hc.textContent = inventory.length; }
 
 /* ---------- Shop by Brand ---------- */
 const BRAND_ORDER = ['Lamborghini', 'Ferrari', 'Porsche', 'McLaren'];
@@ -82,4 +82,12 @@ function initHomeCarousels() {
   document.querySelectorAll('[data-carousel]').forEach(wireCarousel);
 }
 
-initHomeCarousels();
+(async function initHome() {
+  // Try Supabase (published vehicles) → fall back to static inventory.
+  try {
+    const dbCars = window.loadPublishedVehicles ? await loadPublishedVehicles() : null;
+    if (dbCars && dbCars.length) applyVehicles(dbCars);
+  } catch (e) { /* keep static inventory */ }
+  setHomeCount();
+  initHomeCarousels();
+})();

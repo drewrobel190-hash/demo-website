@@ -478,11 +478,15 @@ function showListings() {
 }
 
 // Route from the URL hash: a vehicle page, or the listings (optionally Favorites).
+// Matches by full slug (works for numeric ids AND Supabase UUIDs), with a
+// legacy trailing-number fallback for older links.
 function routeFromHash() {
   const h = location.hash;
-  const m = h.match(/^#vehicle\/.*-(\d+)$/);
-  if (m) {
-    const car = inventory.find(c => c.id === +m[1]);
+  const slugMatch = h.match(/^#vehicle\/(.+)$/);
+  if (slugMatch) {
+    const slug = slugMatch[1];
+    let car = inventory.find(c => carSlug(c) === slug);
+    if (!car) { const n = slug.match(/-(\d+)$/); if (n) car = inventory.find(c => String(c.id) === n[1]); }
     if (car) { showDetail(car); return; }
   }
   hideDetail();
@@ -1143,9 +1147,17 @@ document.addEventListener('click', () => document.querySelectorAll('.sort-dd.ope
 document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.sort-dd.open').forEach(x => x.classList.remove('open')); });
 
 /* ---------- Init ---------- */
-applyQueryFilters();
-render();
-enhanceSortControls();
-// Restore the grid/list view choice for this session.
-try { const v = sessionStorage.getItem(VIEW_KEY); if (v) applyView(v); } catch (e) {}
-routeFromHash();   // open a vehicle directly if the URL already points to one
+(async function initCars() {
+  // Try Supabase (published vehicles); on any problem fall back to the built-in
+  // static inventory so the page always renders.
+  try {
+    const dbCars = window.loadPublishedVehicles ? await loadPublishedVehicles() : null;
+    if (dbCars && dbCars.length) applyVehicles(dbCars);
+  } catch (e) { /* keep static inventory */ }
+  applyQueryFilters();
+  render();
+  enhanceSortControls();
+  // Restore the grid/list view choice for this session.
+  try { const v = sessionStorage.getItem(VIEW_KEY); if (v) applyView(v); } catch (e) {}
+  routeFromHash();   // open a vehicle directly if the URL already points to one
+})();

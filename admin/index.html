@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Supercar Philippines</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/admin.css?v=1" />
+</head>
+<body class="admin">
+
+  <!-- Supabase not configured -->
+  <div class="notice" id="notConfigured" hidden>
+    <div class="notice-card">
+      <h2>Connect Supabase to continue</h2>
+      <p>The admin dashboard needs your Supabase project. Open <code>js/supabase-config.js</code>
+         and paste your <b>Project URL</b> and <b>anon key</b> (Supabase → Project Settings → API),
+         then run the SQL in <code>supabase/</code>.</p>
+      <p>Full steps are in <code>supabase/README.md</code>.</p>
+      <p style="margin-top:18px"><a class="btn btn-ghost" href="../index.html">← Back to website</a></p>
+    </div>
+  </div>
+
+  <!-- Login -->
+  <div class="admin-login" id="loginView" hidden>
+    <form class="login-card" id="loginForm">
+      <div class="login-brand">
+        <img src="../img/logo/777800988_1519762656961604_8598645148948029679_n.jpg" alt="Supercar Philippines" />
+        <div><b>SUPERCAR</b><span>PHILIPPINES</span></div>
+      </div>
+      <h1>Admin sign in</h1>
+      <p class="sub">Manage your vehicle inventory.</p>
+      <div class="field">
+        <label for="adminEmail">Email</label>
+        <input type="email" id="adminEmail" autocomplete="username" required />
+      </div>
+      <div class="field">
+        <label for="adminPassword">Password</label>
+        <input type="password" id="adminPassword" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn btn-primary" id="loginBtn">Sign In</button>
+      <div class="form-msg" id="loginMsg"></div>
+      <p style="margin-top:18px;font-size:13px"><a href="../index.html" style="color:var(--a-dim)">← Back to website</a></p>
+    </form>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="admin-shell" id="dashView" hidden>
+    <aside class="a-side">
+      <div class="a-brand">
+        <img src="../img/logo/777800988_1519762656961604_8598645148948029679_n.jpg" alt="Supercar Philippines" />
+        <div><b>SUPERCAR</b><small>PHILIPPINES · ADMIN</small></div>
+      </div>
+      <nav class="a-nav">
+        <a href="index.html" class="active">Dashboard</a>
+        <a href="index.html">Vehicles</a>
+        <a href="vehicle.html">Add Vehicle</a>
+        <a href="#">Parts <span class="soon">soon</span></a>
+        <a href="#">Settings <span class="soon">soon</span></a>
+      </nav>
+      <div class="spacer"></div>
+      <div style="font-size:12px;color:var(--a-faint);padding:0 12px 8px" id="adminWho"></div>
+      <button class="a-logout" id="logoutBtn">Log out</button>
+    </aside>
+
+    <main class="a-main">
+      <div class="a-head">
+        <div>
+          <h1>Inventory</h1>
+          <p>Post, edit and publish vehicles. Published vehicles appear on the public site.</p>
+        </div>
+        <a class="btn btn-primary" href="vehicle.html">+ Add Vehicle</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b id="statTotal">0</b><span>Vehicles</span></div>
+        <div class="stat published"><b id="statPublished">0</b><span>Published</span></div>
+        <div class="stat draft"><b id="statDrafts">0</b><span>Drafts</span></div>
+        <div class="stat reserved"><b id="statReserved">0</b><span>Reserved</span></div>
+      </div>
+
+      <div class="v-list" id="vehicleList"></div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js?v=1"></script>
+  <script src="../js/supabase.js?v=1"></script>
+  <script src="../js/admin/auth.js?v=1"></script>
+  <script src="../js/admin/dashboard.js?v=1"></script>
+</body>
+</html>

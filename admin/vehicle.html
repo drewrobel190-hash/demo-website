@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vehicle — Supercar Philippines Admin</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/admin.css?v=1" />
+</head>
+<body class="admin">
+  <div class="admin-shell">
+    <aside class="a-side">
+      <div class="a-brand">
+        <img src="../img/logo/777800988_1519762656961604_8598645148948029679_n.jpg" alt="Supercar Philippines" />
+        <div><b>SUPERCAR</b><small>PHILIPPINES · ADMIN</small></div>
+      </div>
+      <nav class="a-nav">
+        <a href="index.html">Dashboard</a>
+        <a href="index.html">Vehicles</a>
+        <a href="vehicle.html" class="active">Add Vehicle</a>
+        <a href="#">Parts <span class="soon">soon</span></a>
+        <a href="#">Settings <span class="soon">soon</span></a>
+      </nav>
+      <div class="spacer"></div>
+      <button class="a-logout" id="logoutBtn">Log out</button>
+    </aside>
+
+    <main class="a-main">
+      <div class="a-head">
+        <div>
+          <h1 id="formTitle">Add Vehicle</h1>
+          <p>Fill the details, upload photos, then Save Draft or Publish.</p>
+        </div>
+        <a class="btn btn-ghost" href="index.html" id="backLink">← Inventory</a>
+      </div>
+
+      <div class="form-wrap">
+        <div class="card">
+          <h2>Vehicle details</h2>
+          <div class="grid2">
+            <div class="field"><label>Brand *</label><input id="f_brand" type="text" placeholder="Ferrari" /></div>
+            <div class="field"><label>Model *</label><input id="f_model" type="text" placeholder="296 GTB" /></div>
+          </div>
+          <div class="grid3">
+            <div class="field"><label>Year</label><input id="f_year" type="number" placeholder="2024" /></div>
+            <div class="field"><label>Mileage (km)</label><input id="f_mileage" type="number" placeholder="1995" /></div>
+            <div class="field"><label>Price (₱)</label><input id="f_price" type="number" placeholder="22224300" /></div>
+          </div>
+          <label class="check" style="margin:2px 0 16px"><input type="checkbox" id="f_por" /> Price on Request (hide the price)</label>
+          <div class="grid3">
+            <div class="field"><label>Condition</label>
+              <select id="f_condition"><option>Pre-Owned</option><option>New</option></select>
+            </div>
+            <div class="field"><label>Location</label><input id="f_location" type="text" value="Cubao, Quezon City" /></div>
+            <div class="field"><label>Status</label>
+              <select id="f_status">
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+                <option value="reserved">Reserved</option>
+                <option value="sold">Sold</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="field"><label>Exterior Color</label><input id="f_ext" type="text" placeholder="Rosso" /></div>
+            <div class="field"><label>Interior Color</label><input id="f_int" type="text" placeholder="Nero" /></div>
+          </div>
+          <div class="grid3">
+            <div class="field"><label>Power (hp)</label><input id="f_hp" type="number" placeholder="819" /></div>
+            <div class="field"><label>Drivetrain</label><input id="f_drivetrain" type="text" placeholder="RWD" /></div>
+            <div class="field"><label>Engine</label><input id="f_engine" type="text" placeholder="3.0L V6 Hybrid" /></div>
+          </div>
+          <div class="field"><label>Description</label><textarea id="f_desc" rows="4" placeholder="Optional notes shown on the vehicle page…"></textarea></div>
+          <div style="display:flex;gap:24px;flex-wrap:wrap">
+            <label class="check"><input type="checkbox" id="f_certified" checked /> Certified / Approved badge</label>
+            <label class="check"><input type="checkbox" id="f_featured" /> Featured</label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Photos</h2>
+          <div class="uploader" id="uploader">
+            <strong>+ Upload Photos</strong><br />
+            <span style="font-size:13px">Click or drag &amp; drop images here. The first one becomes the primary.</span>
+            <input type="file" id="fileInput" accept="image/*" multiple hidden />
+          </div>
+          <div class="img-grid" id="imgGrid"></div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-ghost" id="saveBtn">Save Draft</button>
+          <div class="spacer-x"></div>
+          <button class="btn btn-primary" id="publishBtn">Publish</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js?v=1"></script>
+  <script src="../js/supabase.js?v=1"></script>
+  <script src="../js/admin/auth.js?v=1"></script>
+  <script src="../js/admin/vehicle.js?v=1"></script>
+</body>
+</html>

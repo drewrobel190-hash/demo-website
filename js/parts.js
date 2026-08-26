@@ -4,20 +4,36 @@
    Viber inquiry. Depends on shared.js (peso, Viber, copy helper).
    ============================================================ */
 
+// Demonstration / placeholder parts photos (files live in img/parts, kept as-is).
+// Relative paths so they work on GitHub Pages, not tied to any local machine path.
+// NOTE: the supplied batch only covers Brakes, Carbon Fibre, Wheels and Exhaust —
+// Interior / Engine parts reuse the closest premium image as a stand-in for now.
+const PART_PHOTOS = [
+  'img/parts/0CM6DjextjihvS83PUA0f5__hwwhKKfTvEOZWTCigsq1a4bxPG9JQGWtijXAVBldfbsP2XuIcRmW9F4Pw8Ya7wCptzcAndZGTX9UJ3IASsJtABb2_CvSxNMH_xUNOk-B1Db35Tv49ROGf4aRVs2k_Ps.jfif',  // 0: engine bay / brake
+  'img/parts/4eBQvIlJi6jilmHqGm-RKJeShkikuS2Y25kGWV-A6dRGCIgsOioNsrUbuFM2FgSP6bkv5mSoGLoMcKE9K44fKtiAFt00V6sL5UHXp1oyN-MOjCTtVq9OMAMMkjOsdI_VN_vuJSBZSH_8OV-oUux70n.jfif',  // 1: carbon aero panels
+  'img/parts/5iFkZn6HWuehHu-7oriE2oMqJx-NzGvLAFJ3G61xJkDDXRDqLuyyC_cMJWPIdOjjbTPqNU65kNHnEMxxAXKYNbbOEd_k9iQGHH7KDYaC2deOIa_rXol2Jh1EjGIQXyGOtkZdwzeyIwcjiLg69CtjB2.jfif',  // 2: Porsche carbon-ceramic brake
+  'img/parts/EuMRjm6ElyHmPyaeS8hCWBOweFaBfH34aatQRI8GhhNde4azmWbmpG0Rlf3uWRSpg9yKfMlTfqjkuHsFS294s-P5WJEYWGedu6TS_x-tQ05P4yzH-iHMMKFVaPzGjD21-MUA9tTyU64N86RT3tlPEp.jfif',  // 3: Ferrari carbon-ceramic brake
+  'img/parts/gj8yxHBVfRe8nxwXyvwZ-bRaxdxT3GohKka2eyC4bEX6o8Vjc3DlEgIrBn76sCoIrrh7Svb2ykW9rjmApT1C0VmFs9Ss0k7_EkNyjQCUjXa-P5hRct53wGUXFAeRF-J1IT3sabjfVySu5OUd_eWtVP.jfif',  // 4: carbon aero kit (studio)
+  'img/parts/h9QV9eM0Eklwo3p0THDd9xspPwoVT_OI3bgu4kdbwUFfg-OMQGmwgPQh-JBEfbU0OQuC9SyfymEbBEY_ohXknKMcLtqo7n715E3hrkLrbpaWGp7MNgeyv1iV-fQoR7uaXdO5rz2b2OgJgIHGXSuW--.jfif',  // 5: forged wheel
+  'img/parts/lAl0jAWciTTiBEqGFXyCvGEVHzLXmjK9xVDEA3p6XXZCkJ61tGYXuMEFG0qBzUOO-7pWomYtP-Uumli6Vbn-zGlz9cSgNzI8h9HacnOeojCSED7dMSRGNPC2ALgSmu-zHoGMHoZpvgJHGVy787QWwg.jfif',  // 6: carbon spoiler + skirts
+  'img/parts/oAHGXy536lUl7tZ6j0_axtVOOZNzcdf_w-I-3_gaNmaRTg8DJRhlP2SgoxPU_uYjyQYzNSZ5U8pIhvdQ47MRF7spiiFMHzxUG9dvF1uKIZcJ5iAat30oFx5xsidbuz5BOZ1QyvOBjPi6Bs5JHY7wS4.jfif',  // 7: titanium exhaust (white)
+  'img/parts/yk_9DywA9rNyfzZq7Is6eHWoYEHBkVQV2gjeyDvESnu0TQhU2IEkLXhRalhCbrHWeJ0W1kNT7BWGEDOTWixdA4JR9p7fNyWTgrxUEJH_adMVnPXaQ5OUGYaon9Prw6HFIv0HfLVNfq4gxApIOf9Lpk.jfif',  // 8: titanium exhaust (burnt tips)
+];
+
 // Prices are in the same base units as cars (displayed in PHP via peso()).
 const parts = [
-  { name: 'Carbon Fibre Rear Wing',        brand: 'Lamborghini', category: 'Exterior', price: 9800 },
-  { name: 'Forged Alloy Wheel Set',        brand: 'Ferrari',     category: 'Wheels',   price: 12500 },
-  { name: 'Titanium Sport Exhaust',        brand: 'McLaren',     category: 'Exhaust',  price: 8600 },
-  { name: 'Carbon Ceramic Brake Kit',      brand: 'Porsche',     category: 'Brakes',   price: 11200 },
-  { name: 'Alcantara Steering Wheel',      brand: 'Ferrari',     category: 'Interior', price: 3400 },
-  { name: 'Carbon Fibre Side Skirts',      brand: 'Lamborghini', category: 'Exterior', price: 5200 },
-  { name: 'High-Flow Air Intake',          brand: 'McLaren',     category: 'Engine',   price: 2900 },
-  { name: 'Sport Bucket Seats (Pair)',     brand: 'Porsche',     category: 'Interior', price: 7400 },
-  { name: 'Forged Wheel Set — Matte',      brand: 'Lamborghini', category: 'Wheels',   price: 13800 },
-  { name: 'Front Splitter — Carbon',       brand: 'Ferrari',     category: 'Exterior', price: 6100 },
-  { name: 'Performance Brake Pads',        brand: 'McLaren',     category: 'Brakes',   price: 1800 },
-  { name: 'Valved Titanium Exhaust',       brand: 'Porsche',     category: 'Exhaust',  price: 9200 },
+  { name: 'Carbon Fibre Rear Wing',        brand: 'Lamborghini', category: 'Exterior', price: 9800,  img: PART_PHOTOS[6] },
+  { name: 'Forged Alloy Wheel Set',        brand: 'Ferrari',     category: 'Wheels',   price: 12500, img: PART_PHOTOS[5] },
+  { name: 'Titanium Sport Exhaust',        brand: 'McLaren',     category: 'Exhaust',  price: 8600,  img: PART_PHOTOS[7] },
+  { name: 'Carbon Ceramic Brake Kit',      brand: 'Porsche',     category: 'Brakes',   price: 11200, img: PART_PHOTOS[2] },
+  { name: 'Alcantara Steering Wheel',      brand: 'Ferrari',     category: 'Interior', price: 3400,  img: PART_PHOTOS[4] },
+  { name: 'Carbon Fibre Side Skirts',      brand: 'Lamborghini', category: 'Exterior', price: 5200,  img: PART_PHOTOS[1] },
+  { name: 'High-Flow Air Intake',          brand: 'McLaren',     category: 'Engine',   price: 2900,  img: PART_PHOTOS[0] },
+  { name: 'Sport Bucket Seats (Pair)',     brand: 'Porsche',     category: 'Interior', price: 7400,  img: PART_PHOTOS[4] },
+  { name: 'Forged Wheel Set — Matte',      brand: 'Lamborghini', category: 'Wheels',   price: 13800, img: PART_PHOTOS[5] },
+  { name: 'Front Splitter — Carbon',       brand: 'Ferrari',     category: 'Exterior', price: 6100,  img: PART_PHOTOS[1] },
+  { name: 'Performance Brake Pads',        brand: 'McLaren',     category: 'Brakes',   price: 1800,  img: PART_PHOTOS[3] },
+  { name: 'Valved Titanium Exhaust',       brand: 'Porsche',     category: 'Exhaust',  price: 9200,  img: PART_PHOTOS[8] },
 ];
 
 const partsEl = {
@@ -29,7 +45,10 @@ let partsBrand = 'All';
 
 function partCardHTML(p, idx) {
   return `<article class="part-card">
-    <div class="part-media"><span class="part-cat">${p.category}</span></div>
+    <div class="part-media">
+      ${p.img ? `<img class="part-img" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.remove()" />` : ''}
+      <span class="part-cat">${p.category}</span>
+    </div>
     <div class="part-body">
       <div class="card-brand">${p.brand}</div>
       <h3 class="part-name">${p.name}</h3>

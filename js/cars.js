@@ -33,6 +33,7 @@ const state = {
     minYear: null,
     maxYear: null,
     maxMileage: MILE_MAX,
+    category: null,        // 'luxury' | 'supercar' — set by the nav buttons via ?category=
   },
 };
 
@@ -86,6 +87,15 @@ const el = {
   detailFav: document.getElementById('detailFav'),
 };
 
+/* ---------- Vehicle segment (Supercar vs Luxury / GT) ----------
+   There is no category column in the data, so classify by model: the
+   front-engine grand tourers and the luxury/EV models are "luxury"; every
+   other car on a supercar lot is a "supercar". New vehicles added via the
+   admin therefore default to "supercar" with no database change. */
+const LUXURY_MODELS = ['Roma', 'Portofino', 'Taycan', '911'];
+const carCategory = c => LUXURY_MODELS.some(k => String(c.model || '').includes(k)) ? 'luxury' : 'supercar';
+const CATEGORY_LABEL = { luxury: 'Luxury Cars', supercar: 'Supercars' };
+
 /* ---------- Core: filter + sort ---------- */
 function getVisible(f = state.filters) {
   let list = inventory.filter(c =>
@@ -101,7 +111,8 @@ function getVisible(f = state.filters) {
     (f.maxYear == null || c.year <= f.maxYear) &&
     c.mileage <= f.maxMileage &&
     (!f.certifiedOnly || c.certified) &&
-    (!state.favoritesOnly || state.favorites.has(c.id))
+    (!state.favoritesOnly || state.favorites.has(c.id)) &&
+    (!f.category || carCategory(c) === f.category)
   );
   const p = c => c.priceOnRequest ? Infinity : c.price;   // "on request" sorts last
   const sorters = {
@@ -249,6 +260,7 @@ function renderActiveFilters() {
   const f = state.filters;
   const chips = [];
   ['brand', 'model', 'dealer', 'exterior', 'interior', 'condition', 'location'].forEach(k => f[k].forEach(v => chips.push([k, v])));
+  if (f.category) chips.push(['category', CATEGORY_LABEL[f.category]]);
   if (f.certifiedOnly) chips.push(['certified', 'Certified only']);
   if (f.minPrice > 0) chips.push(['priceMin', 'From ' + peso(f.minPrice)]);
   if (f.maxPrice < PRICE_MAX) chips.push(['priceMax', 'Up to ' + peso(f.maxPrice)]);
@@ -390,6 +402,48 @@ function setDetailImage(idx) {
   });
 }
 
+// Build the detailed spec sheet from ONLY the fields that actually exist on the
+// vehicle. Empty / null / missing values are skipped entirely (no "--", no fakes).
+const escHtml = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function buildSpecSheet(car) {
+  const row = (label, val) => (val == null || val === '') ? '' :
+    `<div class="spec-row"><span class="k">${label}</span><span class="v">${escHtml(val)}</span></div>`;
+  const group = (title, rowsHtml) => rowsHtml
+    ? `<div class="spec-group"><h3 class="spec-group-title">${title}</h3><div class="spec-rows">${rowsHtml}</div></div>` : '';
+
+  // Vehicle Overview
+  const overview = [
+    row('Year', car.year || ''),
+    row('Mileage', (car.mileage != null && car.mileage !== '') ? km(car.mileage) : ''),
+    row('Condition', car.isNew ? 'New' : 'Pre-Owned'),
+    row('Exterior Color', car.color),
+    row('Interior Color', car.interior),
+    row('Location', car.location),
+    row('Dealer', car.dealer),
+    car.certified ? row('Status', 'Certified / Approved') : ''
+  ].join('');
+
+  // Performance & Technical — only fields present in the data (no transmission /
+  // top-speed / 0–100 columns exist, so they are omitted rather than invented).
+  const perf = [
+    row('Engine', car.engine),
+    row('Horsepower', car.hp ? car.hp + ' hp' : ''),
+    row('Drivetrain', car.drivetrain)
+  ].join('');
+
+  let html = group('Vehicle Overview', overview) + group('Performance &amp; Technical Specifications', perf);
+
+  // Additional Information — description and any other existing extras.
+  const extras = [car.featured ? row('Listing', 'Featured') : ''].join('');
+  if (car.description || extras) {
+    html += `<div class="spec-group"><h3 class="spec-group-title">Additional Information</h3>`
+      + (car.description ? `<p class="spec-desc">${escHtml(car.description)}</p>` : '')
+      + (extras ? `<div class="spec-rows">${extras}</div>` : '')
+      + `</div>`;
+  }
+  return html;
+}
+
 function renderDetail(car) {
   state.detailCar = car;
   const imgs = carImages(car);
@@ -414,13 +468,7 @@ function renderDetail(car) {
   el.detailPrice.classList.toggle('on-request', !!car.priceOnRequest);
   el.detailFav.classList.toggle('active', state.favorites.has(car.id));
 
-  el.detailSpecs.innerHTML = `
-    <div class="cell"><span>Exterior Color</span><strong>${car.color}</strong></div>
-    <div class="cell"><span>Interior Color</span><strong>${car.interior}</strong></div>
-    <div class="cell"><span>Mileage</span><strong>${km(car.mileage)}</strong></div>
-    <div class="cell"><span>Power</span><strong>${car.hp} hp</strong></div>
-    <div class="cell"><span>Drivetrain</span><strong>${car.drivetrain}</strong></div>
-    <div class="cell"><span>Engine</span><strong>${car.engine}</strong></div>`;
+  el.detailSpecs.innerHTML = buildSpecSheet(car);
 
   el.detailPrev.classList.toggle('disabled', state.detailIdx <= 0);
   el.detailNext.classList.toggle('disabled', state.detailIdx >= state.detailList.length - 1);
@@ -541,6 +589,7 @@ function cloneFilters(f) {
     condition: new Set(f.condition), location: new Set(f.location),
     certifiedOnly: f.certifiedOnly, minPrice: f.minPrice, maxPrice: f.maxPrice,
     minYear: f.minYear, maxYear: f.maxYear, maxMileage: f.maxMileage,
+    category: f.category || null,
   };
 }
 function commitDraft() {
@@ -550,6 +599,7 @@ function commitDraft() {
   s.condition = new Set(d.condition); s.location = new Set(d.location);
   s.certifiedOnly = d.certifiedOnly; s.minPrice = d.minPrice; s.maxPrice = d.maxPrice;
   s.minYear = d.minYear; s.maxYear = d.maxYear; s.maxMileage = d.maxMileage;
+  s.category = d.category || null;
 }
 function updateDrawerCount() { if (el.filterResultCount) el.filterResultCount.textContent = getVisible(draft).length; }
 
@@ -670,6 +720,7 @@ function clearFilters() {          // clear all → back to the full inventory
   draft.exterior.clear(); draft.interior.clear(); draft.condition.clear(); draft.location.clear();
   draft.certifiedOnly = false; draft.minPrice = 0; draft.maxPrice = PRICE_MAX;
   draft.minYear = null; draft.maxYear = null; draft.maxMileage = MILE_MAX;
+  draft.category = null;
   draftSort = 'featured';
   drawerView = 'menu';
   renderDrawer('back');            // back to the category list, all cleared
@@ -717,6 +768,11 @@ el.activeFilters.addEventListener('click', e => {
   else if (k === 'minYear') f.minYear = null;
   else if (k === 'maxYear') f.maxYear = null;
   else if (k === 'mileage') f.maxMileage = MILE_MAX;
+  else if (k === 'category') {
+    f.category = null;
+    const lt = document.getElementById('listingsTitle');
+    if (lt) lt.textContent = state.favoritesOnly ? 'Your Saved Vehicles' : LISTINGS_TITLE;
+  }
   state.shown = PAGE_SIZE;
   render();
   if (!el.filterModal.hidden) { draft = cloneFilters(state.filters); draftSort = state.sort; drawerView = 'menu'; renderDrawer('back'); }
@@ -1103,6 +1159,13 @@ function applyQueryFilters() {
     if (budget === '15') state.filters.maxPrice = 263000;        // Under ₱15M
     else if (budget === '25') state.filters.maxPrice = 440000;   // Under ₱25M
     else state.filters.maxPrice = PRICE_MAX;                     // Any Budget
+  }
+  // Category buttons (Luxury Cars / Supercar) from the nav + mega menu.
+  const category = p.get('category');
+  if (category === 'luxury' || category === 'supercar') {
+    state.filters.category = category;
+    const lt = document.getElementById('listingsTitle');
+    if (lt) lt.textContent = CATEGORY_LABEL[category];
   }
 }
 

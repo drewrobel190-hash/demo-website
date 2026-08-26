@@ -4,10 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cars for Sale — Supercar Philippines</title>
+
+  <!-- SEO + social link preview (Open Graph / Twitter). og:image uses the
+       existing Supercar Philippines logo. Update the domain if deployed elsewhere. -->
+  <meta name="description" content="Browse the Supercar Philippines inventory — certified pre-owned Ferrari, Lamborghini, Porsche and McLaren supercars, with filters, favourites and direct Viber inquiry." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Supercar Philippines" />
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:title" content="Cars for Sale | Supercar Philippines" />
+  <meta property="og:description" content="Browse certified pre-owned Ferrari, Lamborghini, Porsche and McLaren supercars in the Philippines — with filters, favourites and direct Viber inquiry." />
+  <meta property="og:url" content="https://supercarphilippines.ph/cars.html" />
+  <meta property="og:image" content="https://supercarphilippines.ph/img/logo/777800988_1519762656961604_8598645148948029679_n.jpg" />
+  <meta property="og:image:alt" content="Supercar Philippines" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cars for Sale | Supercar Philippines" />
+  <meta name="twitter:description" content="Browse certified pre-owned Ferrari, Lamborghini, Porsche and McLaren supercars in the Philippines — with filters, favourites and direct Viber inquiry." />
+  <meta name="twitter:image" content="https://supercarphilippines.ph/img/logo/777800988_1519762656961604_8598645148948029679_n.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=14" />
+  <link rel="stylesheet" href="css/styles.css?v=18" />
 </head>
 <body>
   <!-- ===== Top utility bar ===== -->
@@ -33,8 +49,12 @@
         <span class="brand-name">SUPERCAR<span class="brand-sub">PHILIPPINES</span></span>
       </a>
       <nav class="main-nav">
+        <a href="index.html">Home</a>
         <a href="cars.html">Cars</a>
         <a href="parts.html">Parts</a>
+        <a href="cars.html?category=luxury">Luxury Car</a>
+        <a href="cars.html?category=supercar">Super Car</a>
+        <a href="parts.html">Super Car Parts</a>
         <a href="cars.html#favorites">Favorites</a>
         <a href="#" data-action="value">Value Your Car</a>
       </nav>
@@ -324,6 +344,9 @@
           <a href="index.html" data-img="img/1.svg" data-video="videos/menu%20videos/5309353-hd_1920_1080_25fps.mp4">Home</a>
           <a href="cars.html" class="active" data-img="img/2.svg" data-video="videos/menu%20videos/7727416-hd_1920_1080_25fps.mp4">Cars</a>
           <a href="parts.html" data-img="img/3.svg" data-video="videos/menu%20videos/14209289_3840_2160_24fps.mp4">Parts</a>
+          <a href="cars.html?category=luxury" data-img="img/2.svg" data-video="videos/menu%20videos/7727416-hd_1920_1080_25fps.mp4">Luxury Car</a>
+          <a href="cars.html?category=supercar" data-img="img/2.svg" data-video="videos/menu%20videos/7727416-hd_1920_1080_25fps.mp4">Super Car</a>
+          <a href="parts.html" data-img="img/3.svg" data-video="videos/menu%20videos/14209289_3840_2160_24fps.mp4">Super Car Parts</a>
           <a href="#" data-img="img/4.svg" data-action="value" data-video="videos/menu%20videos/14209313_3840_2160_24fps.mp4">Value Your Car</a>
         </nav>
       </div>
@@ -461,6 +484,6 @@
   <script src="js/supabase.js?v=2"></script>
   <script src="js/shared.js?v=6"></script>
   <script src="js/data.js?v=1"></script>
-  <script src="js/cars.js?v=10"></script>
+  <script src="js/cars.js?v=12"></script>
 </body>
 </html>
